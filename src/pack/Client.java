@@ -13,6 +13,7 @@ public class Client {
 	int id;
 	String prenom;
 	String nom;
+	String pseudo;
 	String mdp;
 	String adresseMail;
 	String adresse;
@@ -20,9 +21,10 @@ public class Client {
 	Commande commandeEnCours;
 	List<String> notifications;
 	
-	public Client(String prenom, String nom, String mdp, String adresseMail, String adresse, List<String> gouts) {
+	public Client(String prenom, String nom, String pseudo, String mdp, String adresseMail, String adresse, List<String> gouts) {
 		this.prenom = prenom;
 		this.nom = nom;
+		this.pseudo = pseudo;
 		this.mdp = mdp;
 		this.adresseMail = adresseMail;
 		this.adresse = adresse;
