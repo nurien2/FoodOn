@@ -13,5 +13,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/WhyRootOne/Desktop/bibs/javax.ejb.jar"/>
+	<classpathentry kind="lib" path="C:/Users/WhyRootOne/Desktop/bibs/javax.persistence.jar"/>
+	<classpathentry kind="lib" path="C:/Users/WhyRootOne/Desktop/bibs/javax.servlet-3.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
