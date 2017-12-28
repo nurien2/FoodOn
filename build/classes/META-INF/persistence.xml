@@ -7,9 +7,14 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
-        
-        <class>pack.Personne</class>
-        <class>pack.Adresse</class>
+         
+        <class>pack.Client</class>
+        <class>pack.Commande</class>
+        <class>pack.Commentaire</class>
+        <class>pack.Plat</class>
+        <class>pack.Proprietaire</class>
+        <class>pack.Reservation</class>
+        <class>pack.Restaurant</class>
         
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />

@@ -69,6 +69,7 @@ public class Serv extends HttpServlet {
 				
 				String nom = request.getParameter("nom");
 				String prenom = request.getParameter("prenom");
+				String pseudo = request.getParameter("pseudo");
 				String mdp = request.getParameter("mdp");
 				String adresse = request.getParameter("adresse");
 				String adresseMail = request.getParameter("email");
@@ -77,7 +78,7 @@ public class Serv extends HttpServlet {
 				if (request.getParameter("isClient").equals("false")) {
 					isClient = false;
 				}
-				f.addClient(prenom, nom, mdp, adresseMail, adresse, gouts, isClient);
+				f.addClient(prenom, nom, pseudo, mdp, adresseMail, adresse, gouts, isClient);
 				request.getRequestDispatcher("connexion.html").forward(request, response);
 				break;
 		}
