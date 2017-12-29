@@ -2,8 +2,6 @@ package pack;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -35,7 +33,7 @@ public class Serv extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		System.out.println("DOOOOOOOOOOGEEEEEEEEET");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -43,14 +41,14 @@ public class Serv extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("SEEEEEEEEEEEEEEEEEEEEEEEERV");
 		response.setContentType("text/html;charset=UTF-8");
 		
 		String operation = request.getParameter("operation");
 		PrintWriter out = response.getWriter();
 		switch (operation) {
 			case "connexion":
-				
+				System.out.println("Servlet attaquee connexion !!");
 		        
 		        String email = request.getParameter("email");
 		        String pass = request.getParameter("pass");
@@ -66,7 +64,7 @@ public class Serv extends HttpServlet {
 		        break;
 		        
 			case "inscription":
-				
+				System.out.println("Servlet attaquee inscription !!");
 				String nom = request.getParameter("nom");
 				String prenom = request.getParameter("prenom");
 				String mdp = request.getParameter("mdp");
