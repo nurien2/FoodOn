@@ -16,8 +16,7 @@ public class Facade {
 	@PersistenceContext
 	EntityManager em;
 	
-	public void addClient(String prenom, String nom,String pseudo,String mdp, String adresseMail, String adresse, List<String> gouts, Boolean isClient) {
-		
+	public void addClient(String prenom, String nom, String pseudo, String mdp, String adresseMail, String adresse, String gouts, Boolean isClient) {
 		if (isClient) {
 			Client client = new Client(nom, prenom, pseudo, mdp, adresseMail, adresse, gouts);
 			em.persist(client);

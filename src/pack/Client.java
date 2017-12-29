@@ -1,11 +1,10 @@
 package pack;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Client {
@@ -18,19 +17,19 @@ public class Client {
 	String mdp;
 	String adresseMail;
 	String adresse;
-	//Collection<String> gouts;
-	//@OneToOne(mappedBy="client")
+	String gouts;
+	//List<String> gouts;
 	//Commande commandeEnCours;
-	//Collection<String> notifications;
+	//List<String> notifications;
 	
-	public Client(String prenom, String nom, String pseudo, String mdp, String adresseMail, String adresse, Collection<String> gouts) {
+	public Client(String prenom, String nom, String pseudo, String mdp, String adresseMail, String adresse, String gouts) {
 		this.prenom = prenom;
 		this.nom = nom;
 		this.pseudo = pseudo;
 		this.mdp = mdp;
 		this.adresseMail = adresseMail;
 		this.adresse = adresse;
-//		this.gouts = gouts;
+		this.gouts = gouts;
 	}
 	
 	public int getId() {
@@ -69,24 +68,24 @@ public class Client {
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
-//	public Collection<String> getGouts() {
-//		return gouts;
-//	}
-//	public void setGouts(Collection<String> gouts) {
-//		this.gouts = gouts;
-//	}
-//	public Commande getCommandeEnCours() {
-//		return commandeEnCours;
-//	}
-//	public void setCommandeEnCours(Commande commandeEnCours) {
-//		this.commandeEnCours = commandeEnCours;
-//	}
-//	public Collection<String> getNotifications() {
-//		return notifications;
-//	}
-//	public void setNotifications(Collection<String> notifications) {
-//		this.notifications = notifications;
-//	}
+	public String getGouts() {
+		return gouts;
+	}
+	public void setGouts(String gouts) {
+		this.gouts = gouts;
+	}
+	/*public Commande getCommandeEnCours() {
+		return commandeEnCours;
+	}
+	public void setCommandeEnCours(Commande commandeEnCours) {
+		this.commandeEnCours = commandeEnCours;
+	}*/
+	/*public List<String> getNotifications() {
+		return notifications;
+	}
+	public void setNotifications(List<String> notifications) {
+		this.notifications = notifications;
+	}*/
 	
 	public void commander() {};
 	

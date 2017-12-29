@@ -60,7 +60,7 @@ public class Serv extends HttpServlet {
 		            rs.forward(request, response);
 		        } else {
 		           out.println("Adresse ou mdp incorrects");
-		           RequestDispatcher rs = request.getRequestDispatcher("index.html");
+		           RequestDispatcher rs = request.getRequestDispatcher("connexion.html");
 		           rs.include(request, response);
 		        }
 		        break;
@@ -69,12 +69,12 @@ public class Serv extends HttpServlet {
 				
 				String nom = request.getParameter("nom");
 				String prenom = request.getParameter("prenom");
-				String pseudo = request.getParameter("pseudo");
 				String mdp = request.getParameter("mdp");
 				String adresse = request.getParameter("adresse");
 				String adresseMail = request.getParameter("email");
+				String pseudo = request.getParameter("pseudo");
 				Boolean isClient = true;
-				List<String> gouts = new ArrayList<String>();
+				String gouts = "";
 				if (request.getParameter("isClient").equals("false")) {
 					isClient = false;
 				}
