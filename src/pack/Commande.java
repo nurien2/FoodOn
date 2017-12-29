@@ -3,12 +3,48 @@ package pack;
 import java.util.Date;
 import java.util.HashMap;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Commande {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	int id;
+	
 	int id_client;
 	int id_resto;
 	HashMap<Plat,Integer> plats;
 	Date DateCommande;
+//	@ManyToOne
+//	Proprietaire proprietaire;
+//	@OneToOne
+//	Client client;
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+//	public Proprietaire getProprietaire() {
+//		return proprietaire;
+//	}
+//	public void setProprietaire(Proprietaire proprietaire) {
+//		this.proprietaire = proprietaire;
+//	}
+//	public Client getClient() {
+//		return client;
+//	}
+//	public void setClient(Client client) {
+//		this.client = client;
+//	}
 	public int getId_client() {
 		return id_client;
 	}

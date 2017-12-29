@@ -1,12 +1,14 @@
 package pack;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Plat {
@@ -16,6 +18,8 @@ public class Plat {
 	int id;
 	File photo;
 	String nom;
+//	@ManyToMany(mappedBy="plats")
+//	Collection<Restaurant> restaurants;
 	HashMap<Integer,Commentaire> commentaires;
 	
 	public int getId() {
