@@ -22,6 +22,8 @@ public class Client {
 	//Commande commandeEnCours;
 	//List<String> notifications;
 	
+	public Client() {};
+	
 	public Client(String prenom, String nom, String pseudo, String mdp, String adresseMail, String adresse, String gouts) {
 		this.prenom = prenom;
 		this.nom = nom;

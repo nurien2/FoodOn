@@ -13,6 +13,7 @@ public class Proprietaire extends Client {
 	List<Restaurant> restaurants;
 	//List<Commande> commandes;
 	
+	public Proprietaire() {};
 	
 	public Proprietaire(String prenom, String nom, String pseudo, String mdp, String adresseMail, String adresse, String gouts) {
 		super(prenom, nom, pseudo, mdp, adresseMail, adresse, gouts);

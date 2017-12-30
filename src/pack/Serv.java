@@ -34,15 +34,7 @@ public class Serv extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("DOOOOOOOOOOGEEEEEEEEET");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("SEEEEEEEEEEEEEEEEEEEEEEEERV");
-		response.setContentType("text/html;charset=UTF-8");
+response.setContentType("text/html;charset=UTF-8");
 		
 		String operation = request.getParameter("operation");
 		PrintWriter out = response.getWriter();
@@ -53,12 +45,19 @@ public class Serv extends HttpServlet {
 		        String email = request.getParameter("email");
 		        String pass = request.getParameter("pass");
 		        
-		        if(ValidationUser.verifierUser(f, email, pass)) {
-		            RequestDispatcher rs = request.getRequestDispatcher("Bienvenue");
-		            rs.forward(request, response);
+		        Client utilisateur = null;
+
+		        if ((utilisateur = ValidationUser.verifierUser(f, email, pass)) != null) {
+		        	out.println("Bienvenue " + utilisateur.getPrenom());
+		        	System.out.println(utilisateur instanceof Proprietaire);
+		        	if (utilisateur instanceof Proprietaire) {
+		        		request.getRequestDispatcher("homePropriataire.html").forward(request, response);
+		        	} else {
+		        		request.getRequestDispatcher("homeClient.html").forward(request, response);
+		        	}
 		        } else {
 		           out.println("Adresse ou mdp incorrects");
-		           RequestDispatcher rs = request.getRequestDispatcher("connexion.html");
+		           RequestDispatcher rs = request.getRequestDispatcher("Connexion.html");
 		           rs.include(request, response);
 		        }
 		        break;
@@ -77,9 +76,18 @@ public class Serv extends HttpServlet {
 					isClient = false;
 				}
 				f.addClient(prenom, nom, pseudo, mdp, adresseMail, adresse, gouts, isClient);
-				request.getRequestDispatcher("connexion.html").forward(request, response);
+				request.getRequestDispatcher("Connexion.html").forward(request, response);
 				break;
 		}
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("SEEEEEEEEEEEEEEEEEEEEEEEERV");
+		response.getWriter().append("Served at: ").append(request.getContextPath());
         
 	}
 

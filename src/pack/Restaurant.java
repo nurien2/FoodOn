@@ -24,6 +24,7 @@ public class Restaurant {
 	//List<Plat> plats;
 	HashMap<Integer,Commentaire> commentaires;
 	
+	public Restaurant() {};
 	
 	public Proprietaire getProprietaire() {
 		return proprietaire;
