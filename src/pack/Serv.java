@@ -49,7 +49,6 @@ response.setContentType("text/html;charset=UTF-8");
 
 		        if ((utilisateur = ValidationUser.verifierUser(f, email, pass)) != null) {
 		        	out.println("Bienvenue " + utilisateur.getPrenom());
-		        	System.out.println(utilisateur instanceof Proprietaire);
 		        	if (utilisateur instanceof Proprietaire) {
 		        		request.getRequestDispatcher("homePropriataire.html").forward(request, response);
 		        	} else {
