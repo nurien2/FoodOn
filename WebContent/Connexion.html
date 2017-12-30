@@ -33,23 +33,34 @@
     </nav>
 <!-- END Navbar -->
 
-	<!-- Start Connexion -->
-	<div class="container">
-		<div class="row align-items-center">
-	      <form class="form-signin" method="get" action="FoodOn/Serv">
-	        <h2 class="form-signin-heading">Connectez-vous</h2>
-	        <label for="inputEmail" class="sr-only">Adresse Email</label>
-	        <input type="email" name="email" class="form-control" placeholder="adresse Email">
-	        <label for="inputPassword" class="sr-only">Mot de passe</label>
-	        <input type="password" name="pass" class="form-control" placeholder="Mot de passe">
-	        <input type="hidden" name="operation" value="connexion">
-	        <button class="btn btn-lg btn-primary btn-block" type="submit">se connecter</button>
-	      </form>
-		</div>
-	</div> <!-- /container -->
-	<!-- END Connexion -->
-
 	
+
+	<section id="login">
+	    <div class="container">
+	      <div class="row">
+	        <div class="col-md-6 offset-md-3">
+	          <div class="card">
+	            <div class="card-header">
+	              <h4>Compte</h4>
+	            </div>
+	            <div class="card-block">
+	              <form action="FoodOn/homeProprietaire.html">
+	                <div class="form-group">
+	                  <label for="email" class="form-control-label">Email</label>
+	                  <input type="text" class="form-control">
+	                </div>
+	                <div class="form-group">
+	                  <label for="password" class="form-control-label">Mot de passe</label>
+	                  <input type="password" class="form-control">
+	                </div>
+	                <button class="btn btn-primary btn-block mb-3" type="submit">Se connecter</button>
+	              </form>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  </section>
 	
 	
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
