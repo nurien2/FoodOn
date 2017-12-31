@@ -34,7 +34,15 @@ public class Serv extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("DOOOOOOOOOOGEEEEEEEEET");
-response.setContentType("text/html;charset=UTF-8");
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("SEEEEEEEEEEEEEEEEEEEEEEEERV");
+		response.setContentType("text/html;charset=UTF-8");
 		
 		String operation = request.getParameter("operation");
 		PrintWriter out = response.getWriter();
@@ -50,7 +58,7 @@ response.setContentType("text/html;charset=UTF-8");
 		        if ((utilisateur = ValidationUser.verifierUser(f, email, pass)) != null) {
 		        	out.println("Bienvenue " + utilisateur.getPrenom());
 		        	if (utilisateur instanceof Proprietaire) {
-		        		request.getRequestDispatcher("homePropriataire.html").forward(request, response);
+		        		request.getRequestDispatcher("homeProprietaire.html").forward(request, response);
 		        	} else {
 		        		request.getRequestDispatcher("homeClient.html").forward(request, response);
 		        	}
@@ -79,14 +87,6 @@ response.setContentType("text/html;charset=UTF-8");
 				break;
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("SEEEEEEEEEEEEEEEEEEEEEEEERV");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
         
 	}
 
