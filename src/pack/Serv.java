@@ -101,8 +101,7 @@ public class Serv extends HttpServlet {
 				String specialtiteResto = request.getParameter("specialite");
 				String descriptionResto = request.getParameter("editor1");
 				File photoResto = (File) request.getAttribute("photo");
-				int idProprio = ((Proprietaire) session.getAttribute("utilisateur")).getId();
-				f.addRestaurant(idProprio, nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
+				f.addRestaurant((Proprietaire) session.getAttribute("utilisateur"), nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
 				request.getRequestDispatcher("homeProprietaire.html").forward(request, response);
 				break;
 			case "ajouterPlatRestaurant" :
