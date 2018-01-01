@@ -26,6 +26,8 @@ public class Plat {
 	@ManyToOne
 	Restaurant resto;
 	
+	public Plat() {};
+	
 	public int getId() {
 		return id;
 	}
