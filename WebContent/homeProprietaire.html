@@ -161,7 +161,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="post" action="FoodOn/Serv">
+          <form method="post" action="Serv" id="myForm">
             <div class="form-group">
               <label for="nom" class="form-control-label">Nom</label>
               <input type="text" name="nom" class="form-control">
@@ -188,12 +188,13 @@
               <label for="body">Description</label>
               <textarea name="editor1" class="form-control"></textarea>
             </div>
+            <input type="hidden" name="operation" value="ajouterRestaurant">
           </form>
         </div>
-        <input type="hidden" name="operation" value="ajouterRestaurant">
+        
         <div class="modal-footer">
           <button class="btn btn-secondary" data-dismiss="modal">fermer</button>
-          <button class="btn btn-primary" data-dismiss="modal">Ajouter le restaurant</button>
+          <button type="submit" class="btn btn-primary" data-dismiss="modal" onclick='$("#myForm").submit();'>Ajouter le restaurant</button>
         </div>
       </div>
     </div>
@@ -233,6 +234,7 @@
               <label for="body">Description</label>
               <textarea name="editor1" class="form-control"></textarea>
             </div>
+            <input type="hidden" name="operation" value="ajouterRestaurant">
           </form>
         </div>
         <div class="modal-footer">
@@ -243,6 +245,9 @@
     </div>
   </div>
 
+  <script>
+  
+  </script>
 
   <script src="js/jquery.min.js"></script>
   <script src="js/tether.min.js"></script>
