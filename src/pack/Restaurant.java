@@ -20,12 +20,29 @@ public class Restaurant {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	int id;
 	
-	//List<File> photos;
+	String nom;
+	String specialite;
+	File photo;
+	String descrption;
+	String adresse;
+	
 	//List<Plat> plats;
 	HashMap<Integer,Commentaire> commentaires;
 	
 	public Restaurant() {};
+
 	
+	public Restaurant(String nom, String specialite, File photo, String descrption, String adresse) {
+		super();
+		this.nom = nom;
+		this.specialite = specialite;
+		this.photo = photo;
+		this.descrption = descrption;
+		this.adresse = adresse;
+	}
+
+
+
 	public Proprietaire getProprietaire() {
 		return proprietaire;
 	}
@@ -38,13 +55,43 @@ public class Restaurant {
 	public void setId(int id) {
 		this.id = id;
 	}
-	/*public List<File> getPhotos() {
-		return photos;
+	public File getPhoto() {
+		return photo;
 	}
-	public void setPhotos(List<File> photos) {
-		this.photos = photos;
+	public void setPhoto(File photo) {
+		this.photo = photo;
 	}
-	public List<Plat> getPlats() {
+	public String getNom() {
+		return nom;
+	}
+
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+
+	public String getSpecialite() {
+		return specialite;
+	}
+
+
+	public void setSpecialite(String specialite) {
+		this.specialite = specialite;
+	}
+
+
+	public String getDescrption() {
+		return descrption;
+	}
+
+
+	public void setDescrption(String descrption) {
+		this.descrption = descrption;
+	}
+
+
+	/*public List<Plat> getPlats() {
 		return plats;
 	}
 	public void setPlats(List<Plat> plats) {

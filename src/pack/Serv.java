@@ -48,7 +48,7 @@ public class Serv extends HttpServlet {
 		String operation = request.getParameter("operation");
 		PrintWriter out = response.getWriter();
 		
-		/* Récupération de la session depuis la requête */
+		/* Rï¿½cupï¿½ration de la session depuis la requï¿½te */
         HttpSession session = request.getSession();
 		
 		switch (operation) {
@@ -90,6 +90,16 @@ public class Serv extends HttpServlet {
 				}
 				f.addClient(prenom, nom, pseudo, mdp, adresseMail, adresse, gouts, isClient);
 				request.getRequestDispatcher("Connexion.html").forward(request, response);
+				break;
+				
+			case "ajouterRestaurant" :
+				System.out.println("Servlet attaque ajoutResto !!!");
+				String nomResto = request.getParameter("nom");
+				String adresseResto = request.getParameter("adresse");
+				String specialtiteResto = request.getParameter("specialite");
+				String descriptionResto = request.getParameter("editor1");
+				File photoResto = (File) request.getAttribute("photo");
+				f.addRestaurant(Integer.parseInt(session.getId()), nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
 				break;
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
