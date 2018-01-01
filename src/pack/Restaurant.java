@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Restaurant {
 
+
+
 	@ManyToOne
 	Proprietaire proprietaire;
 	
@@ -31,6 +33,9 @@ public class Restaurant {
 	
 	@OneToMany(mappedBy="resto", fetch=FetchType.EAGER)
 	List<Plat> plats;
+	
+	
+	
 	HashMap<Integer,Commentaire> commentaires;
 	
 	public Restaurant() {};
@@ -110,7 +115,7 @@ public class Restaurant {
 		this.commentaires.put(commentaire.idClient, commentaire);
 	}
 	
-	/*public void ajouterPlat(Plat plat) {
+	public void ajouterPlat(Plat plat) {
 		if (!this.plats.contains(plat)) {
 			this.plats.add(plat);
 		}
@@ -119,5 +124,5 @@ public class Restaurant {
 	public void retirerPlat(Plat plat) {
 		this.plats.remove(plat);
 	}
-	*/
+	
 }

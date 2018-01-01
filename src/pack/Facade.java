@@ -19,10 +19,10 @@ public class Facade {
 	
 	public void addClient(String prenom, String nom, String pseudo, String mdp, String adresseMail, String adresse, String gouts, Boolean isClient) {
 		if (isClient) {
-			Client client = new Client(nom, prenom, pseudo, mdp, adresseMail, adresse, gouts);
+			Client client = new Client(prenom, nom, pseudo, mdp, adresseMail, adresse, gouts);
 			em.persist(client);
 		} else {
-			Proprietaire proprietaire = new Proprietaire(nom, prenom, pseudo, mdp, adresseMail, adresse, gouts);
+			Proprietaire proprietaire = new Proprietaire(prenom, nom, pseudo, mdp, adresseMail, adresse, gouts);
 			em.persist(proprietaire);
 		}
 		

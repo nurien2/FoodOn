@@ -11,6 +11,8 @@ public class Proprietaire extends Client {
 
 	@OneToMany(mappedBy="proprietaire", fetch = FetchType.EAGER)
 	List<Restaurant> restaurants;
+	
+	
 	//List<Commande> commandes;
 	
 	public Proprietaire() {};

@@ -66,7 +66,9 @@ public class Serv extends HttpServlet {
 		        	out.println("Bienvenue " + utilisateur.getPrenom());
 		        	session.setAttribute("utilisateur", utilisateur );
 		        	if (utilisateur instanceof Proprietaire) {
-		        		request.getRequestDispatcher("homeProprietaire.html").forward(request, response);
+		        		request.setAttribute("prenom", utilisateur.getPrenom());
+		        		request.setAttribute("user", utilisateur);
+		        		request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 		        	} else {
 		        		request.getRequestDispatcher("homeClient.html").forward(request, response);
 		        	}
