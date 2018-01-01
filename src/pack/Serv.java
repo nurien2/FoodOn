@@ -3,6 +3,7 @@ package pack;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -100,7 +101,33 @@ public class Serv extends HttpServlet {
 				String specialtiteResto = request.getParameter("specialite");
 				String descriptionResto = request.getParameter("editor1");
 				File photoResto = (File) request.getAttribute("photo");
-				f.addRestaurant(Integer.parseInt(session.getId()), nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
+				int idProprio = ((Proprietaire) session.getAttribute("utilisateur")).getId();
+				f.addRestaurant(idProprio, nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
+				request.getRequestDispatcher("homeProprietaire.html").forward(request, response);
+				break;
+			case "ajouterPlatRestaurant" :
+				System.out.println("Servlet attaque ajoutPlatResto !!!");
+				String nomPlat = request.getParameter("nom");
+				String descriptionPlat = request.getParameter("description");
+				String prixPlat = request.getParameter("prix");
+				String restoAssocie = request.getParameter("restaurant");
+				File photoPlat = (File) request.getAttribute("photo");
+				List<Restaurant> listeRestos = ((Proprietaire) session.getAttribute("utilisateur")).getRestaurants();
+				System.out.println(((Proprietaire) session.getAttribute("utilisateur")).getRestaurants());
+				int idResto = -1;
+				System.out.println(listeRestos);
+				System.out.println(restoAssocie);
+				for (Restaurant r : listeRestos) {
+					if (r.getNom().equals(restoAssocie)) {
+						idResto = r.getId();
+					}
+				}
+				if (idResto != -1) {
+					f.addPlatResto(nomPlat,descriptionPlat,prixPlat,photoPlat,idResto);
+				} else {
+					System.out.println("restaurant inconnu");
+				}
+				request.getRequestDispatcher("homeProprietaire.html").forward(request, response);
 				break;
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());

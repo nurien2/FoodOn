@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Restaurant {
@@ -17,16 +20,17 @@ public class Restaurant {
 	Proprietaire proprietaire;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
 	
 	String nom;
 	String specialite;
 	File photo;
-	String descrption;
+	String description;
 	String adresse;
 	
-	//List<Plat> plats;
+	@OneToMany(mappedBy="resto", fetch=FetchType.EAGER)
+	List<Plat> plats;
 	HashMap<Integer,Commentaire> commentaires;
 	
 	public Restaurant() {};
@@ -37,7 +41,7 @@ public class Restaurant {
 		this.nom = nom;
 		this.specialite = specialite;
 		this.photo = photo;
-		this.descrption = descrption;
+		this.description = descrption;
 		this.adresse = adresse;
 	}
 
@@ -81,22 +85,20 @@ public class Restaurant {
 	}
 
 
-	public String getDescrption() {
-		return descrption;
+	public String getDescription() {
+		return description;
 	}
 
 
-	public void setDescrption(String descrption) {
-		this.descrption = descrption;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-
-
-	/*public List<Plat> getPlats() {
+	public List<Plat> getPlats() {
 		return plats;
 	}
 	public void setPlats(List<Plat> plats) {
 		this.plats = plats;
-	}*/
+	}
 	public HashMap<Integer, Commentaire> getCommentaires() {
 		return commentaires;
 	}

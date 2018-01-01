@@ -19,10 +19,24 @@ public class Proprietaire extends Client {
 		super(prenom, nom, pseudo, mdp, adresseMail, adresse, gouts);
 	}
 	
+	
+	
+	public List<Restaurant> getRestaurants() {
+		return restaurants;
+	}
+
+	public void setRestaurants(List<Restaurant> restaurants) {
+		this.restaurants = restaurants;
+	}
+
 	public void ajouterRestaurant(Restaurant resto) {
 		this.restaurants.add(resto);
 	}
 	
-	public void accepterCommande() {};
+	public void accepterCommande() {}
+
+	public void addResto(Restaurant resto) {
+		this.restaurants.add(resto);		
+	};
 
 }

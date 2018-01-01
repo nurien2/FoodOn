@@ -171,11 +171,8 @@
               <input type="text" name="adresse" class="form-control">
             </div>
             <div class="form-group">
-              <label for="category" class="form-control-label">Spécialité</label>
-              <select name="specialite" class="form-control">
-                <option value="">Italien</option>
-                <option value="">Français</option>
-              </select>
+              <label for="specialite" class="form-control-label">Spécialité</label>
+              <input type="text" name="specialite" class="form-control">
             </div>
             <div class="form-group bg-faded p-3">
               <label for="file">Image</label>
@@ -211,21 +208,22 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form method="post" action="Serv" id="myForm1">
             <div class="form-group">
               <label for="title" class="form-control-label">Nom</label>
-              <input type="text" class="form-control">
+              <input type="text" name="nom" class="form-control">
             </div>
             <div class="form-group">
-              <label for="category" class="form-control-label">Restaurant</label>
-              <select class="form-control">
-                <option value="">Nom Restau 1</option>
-                <option value="">Nom Restau 2</option>
-              </select>
+              <label for="prix" class="form-control-label">Prix</label>
+              <input type="text" name="prix" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="restaurant" class="form-control-label">Restaurant</label>
+              <input type="text" name="restaurant" class="form-control">
             </div>
             <div class="form-group bg-faded p-3">
               <label for="file">Image</label>
-              <input type="file" class="form-control-file" id="file">
+              <input type="file" name="photo" class="form-control-file" id="file">
               <small id="fileHelp" class="form-text text-muted">
                 taille max 2MB
               </small>
@@ -234,12 +232,13 @@
               <label for="body">Description</label>
               <textarea name="editor1" class="form-control"></textarea>
             </div>
-            <input type="hidden" name="operation" value="ajouterRestaurant">
+            <input type="hidden" name="operation" value="ajouterPlatRestaurant">
           </form>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-            <button class="btn btn-success" data-dismiss="modal">Ajouter le plat</button>
+          <button class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" class="btn btn-primary" data-dismiss="modal" onclick='$("#myForm1").submit();'>Ajouter le plat</button>
+        </div>
         </div>
       </div>
     </div>
