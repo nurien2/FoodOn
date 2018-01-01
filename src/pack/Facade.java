@@ -31,8 +31,8 @@ public class Facade {
 	public void addRestaurant(int idProprio, String nom,String description,String specialite, File photo, String adresse) {
 		Restaurant resto = new Restaurant(nom, specialite, photo, description, adresse);
 		em.persist(resto);
-		Proprietaire proprio = em.find(proprietaire.class, idProprio);
-		resto.setProprietaire(proprietaire);
+		Proprietaire proprio = em.find(Proprietaire.class, idProprio);
+		resto.setProprietaire(proprio);
 	}
 	
 	
