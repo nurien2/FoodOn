@@ -32,11 +32,7 @@ public class Facade {
 		Restaurant resto = new Restaurant(nom, specialite, photo, description, adresse);
 		em.persist(resto);
 		resto.setProprietaire(proprio);
-		System.out.println(proprio.getRestaurants());
-		System.out.println(resto);
-		// ajout a la liste des restos du proprio : ça devrait se faire tout seul non?
 		proprio.addResto(resto);
-		System.out.println(proprio.getRestaurants());
 	}
 	
 	public void addPlatResto(String nom, String description, String prix, File photo, String nomResto,Proprietaire proprio) {

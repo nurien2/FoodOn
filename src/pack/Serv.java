@@ -104,6 +104,7 @@ public class Serv extends HttpServlet {
 				f.addRestaurant((Proprietaire) session.getAttribute("utilisateur"), nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
 				request.getRequestDispatcher("homeProprietaire.html").forward(request, response);
 				break;
+			
 			case "ajouterPlatRestaurant" :
 				System.out.println("Servlet attaque ajoutPlatResto !!!");
 				String nomPlat = request.getParameter("nom");
