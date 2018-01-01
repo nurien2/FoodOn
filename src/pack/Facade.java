@@ -40,11 +40,22 @@ public class Facade {
 		System.out.println(proprio.getRestaurants());
 	}
 	
-	public void addPlatResto(String nom, String description, String prix, File photo, int idResto) {
-		System.out.println("coucou");
-		Plat plat = new Plat(photo,nom,description,prix);
-		em.persist(plat);
-		plat.setResto(em.find(Restaurant.class, idResto));
+	public void addPlatResto(String nom, String description, String prix, File photo, String nomResto,Proprietaire proprio) {
+
+		int idResto = -1;
+		for (Restaurant r : proprio.getRestaurants()) {
+			if (r.getNom().equals(nomResto)) {
+				idResto = r.getId();
+			}
+		}
+		if (idResto != -1) {
+			Plat plat = new Plat(photo,nom,description,prix);
+			em.persist(plat);
+			plat.setResto(em.find(Restaurant.class, idResto));
+		} else {
+			System.out.println("resto inconnu");
+		}
+		
 	}
 	
 	

@@ -112,21 +112,7 @@ public class Serv extends HttpServlet {
 				String prixPlat = request.getParameter("prix");
 				String restoAssocie = request.getParameter("restaurant");
 				File photoPlat = (File) request.getAttribute("photo");
-				List<Restaurant> listeRestos = ((Proprietaire) session.getAttribute("utilisateur")).getRestaurants();
-				System.out.println(((Proprietaire) session.getAttribute("utilisateur")).getRestaurants());
-				int idResto = -1;
-				System.out.println(listeRestos);
-				System.out.println(restoAssocie);
-				for (Restaurant r : listeRestos) {
-					if (r.getNom().equals(restoAssocie)) {
-						idResto = r.getId();
-					}
-				}
-				if (idResto != -1) {
-					f.addPlatResto(nomPlat,descriptionPlat,prixPlat,photoPlat,idResto);
-				} else {
-					System.out.println("restaurant inconnu");
-				}
+				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,photoPlat,restoAssocie,(Proprietaire) session.getAttribute("utilisateur"));
 				request.getRequestDispatcher("homeProprietaire.html").forward(request, response);
 				break;
 		}
