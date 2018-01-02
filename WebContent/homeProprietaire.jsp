@@ -51,6 +51,7 @@
 		  <%
 		  	String prenom = (String) request.getAttribute("prenom");
 		  	int nbRestaux = Integer.parseInt((String) request.getAttribute("nbRestaux"));
+		  	int nbPlats = Integer.parseInt((String) request.getAttribute("nbPlats")); 
 		  %>	
           <li class="nav-item dropdown mr-3">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Bienvenue <%= prenom %></a>
@@ -138,8 +139,11 @@
           <div class="card text-center card-success text-white mb-3">
             <div class="card-block">
               <h3>Plats</h3>
-              <h1 class="display-4"><i class="fa fa-spoon"></i> 4</h1>
-              <a href="plats.html" class="btn btn-sm btn-outline-secondary text-white">Voir</a>
+              <h1 class="display-4"><i class="fa fa-spoon"></i> <%= nbPlats%></h1>
+              <form role="form" method="get" action="Serv" id="getPlats">
+              	<input type="hidden" name="operation" value="plats">
+              </form>
+              <a href="plats.html" class="btn btn-sm btn-outline-secondary text-white" onclick='$("#getPlats").submit();'>Voir</a>
             </div>
           </div>
 
