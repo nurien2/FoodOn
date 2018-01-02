@@ -127,7 +127,10 @@
             <div class="card-block">
               <h3>Restaurants</h3>
               <h1 class="display-4"><i class="fa fa-cutlery"></i> 3</h1>
-              <a href="restaurants.jsp" class="btn btn-sm btn-outline-secondary text-white">Voir</a>
+              <form role="form" method="get" action="Serv" id="getRestaux">
+              	<input type="hidden" name="operation" value="restaurants">
+              </form>
+              <a class="btn btn-sm btn-outline-secondary text-white" onclick='$("#getRestaux").submit();'>Voir</a>
             </div>
           </div>
 
