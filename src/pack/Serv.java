@@ -90,7 +90,8 @@ public class Serv extends HttpServlet {
 		        	session.setAttribute("utilisateur", utilisateur );
 		        	if (utilisateur instanceof Proprietaire) {
 		        		request.setAttribute("prenom", utilisateur.getPrenom());
-		        		//request.setAttribute("user", utilisateur);
+		        		int nbRestaux = ((Proprietaire) utilisateur).getRestaurants().size();
+		        		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 		        		request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 		        	} else {
 		        		request.getRequestDispatcher("homeClient.html").forward(request, response);
@@ -128,6 +129,8 @@ public class Serv extends HttpServlet {
 				File photoResto = (File) request.getAttribute("photo");
 				Proprietaire user = (Proprietaire) session.getAttribute("utilisateur");
 				f.addRestaurant(user , nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
+				int nbRestaux = ((Proprietaire) user).getRestaurants().size();
+        		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 				request.setAttribute("prenom", user.getPrenom());
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
@@ -141,6 +144,8 @@ public class Serv extends HttpServlet {
 				File photoPlat = (File) request.getAttribute("photo");
 				Proprietaire userr = (Proprietaire) session.getAttribute("utilisateur");
 				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,photoPlat,restoAssocie,userr);
+				int nbRestau = ((Proprietaire) userr).getRestaurants().size();
+        		request.setAttribute("nbRestaux",Integer.toString(nbRestau));
 				request.setAttribute("prenom", userr.getPrenom());
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;

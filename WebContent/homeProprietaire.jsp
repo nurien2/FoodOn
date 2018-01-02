@@ -48,8 +48,9 @@
           </li>
 			
 			
-		  <% 
+		  <%
 		  	String prenom = (String) request.getAttribute("prenom");
+		  	int nbRestaux = Integer.parseInt((String) request.getAttribute("nbRestaux"));
 		  %>	
           <li class="nav-item dropdown mr-3">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Bienvenue <%= prenom %></a>
@@ -126,7 +127,7 @@
           <div class="card text-center card-primary text-white mb-3">
             <div class="card-block">
               <h3>Restaurants</h3>
-              <h1 class="display-4"><i class="fa fa-cutlery"></i> 3</h1>
+              <h1 class="display-4"><i class="fa fa-cutlery"></i> <%= nbRestaux %></h1>
               <form role="form" method="get" action="Serv" id="getRestaux">
               	<input type="hidden" name="operation" value="restaurants">
               </form>
