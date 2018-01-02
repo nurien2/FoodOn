@@ -56,6 +56,7 @@ public class Serv extends HttpServlet {
 				if (!listeResto.isEmpty()) { 
 						request.setAttribute("listeResto", listeResto);
 				}
+				request.setAttribute("prenom", user.getPrenom());
 				request.getRequestDispatcher("restaurants.jsp").forward(request, response);
 				break;
 		}
@@ -89,7 +90,7 @@ public class Serv extends HttpServlet {
 		        	session.setAttribute("utilisateur", utilisateur );
 		        	if (utilisateur instanceof Proprietaire) {
 		        		request.setAttribute("prenom", utilisateur.getPrenom());
-		        		request.setAttribute("user", utilisateur);
+		        		//request.setAttribute("user", utilisateur);
 		        		request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 		        	} else {
 		        		request.getRequestDispatcher("homeClient.html").forward(request, response);
@@ -125,7 +126,9 @@ public class Serv extends HttpServlet {
 				String specialtiteResto = request.getParameter("specialite");
 				String descriptionResto = request.getParameter("editor1");
 				File photoResto = (File) request.getAttribute("photo");
-				f.addRestaurant((Proprietaire) session.getAttribute("utilisateur"), nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
+				Proprietaire user = (Proprietaire) session.getAttribute("utilisateur");
+				f.addRestaurant(user , nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
+				request.setAttribute("prenom", user.getPrenom());
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
 			
@@ -136,7 +139,9 @@ public class Serv extends HttpServlet {
 				String prixPlat = request.getParameter("prix");
 				String restoAssocie = request.getParameter("restaurant");
 				File photoPlat = (File) request.getAttribute("photo");
-				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,photoPlat,restoAssocie,(Proprietaire) session.getAttribute("utilisateur"));
+				Proprietaire userr = (Proprietaire) session.getAttribute("utilisateur");
+				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,photoPlat,restoAssocie,userr);
+				request.setAttribute("prenom", userr.getPrenom());
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
 
