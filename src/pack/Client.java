@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Client {
@@ -19,7 +20,8 @@ public class Client {
 	String adresse;
 	String gouts;
 	//List<String> gouts;
-	//Commande commandeEnCours;
+	@OneToOne
+	Commande commandeEnCours;
 	//List<String> notifications;
 	
 	public Client() {};

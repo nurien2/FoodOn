@@ -3,23 +3,35 @@ package pack;
 import java.util.Date;
 import java.util.HashMap;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Commande {
 
-	int id_client;
-	int id_resto;
+	@Id
+	int id;
+	
+
+	@OneToOne
+	Client client;
+	
+	@OneToOne
+	Restaurant restaurant;
 	HashMap<Plat,Integer> plats;
 	Date DateCommande;
-	public int getId_client() {
-		return id_client;
+	public Client getClient() {
+		return client;
 	}
-	public void setId_client(int id_client) {
-		this.id_client = id_client;
+	public void setClient(Client client) {
+		this.client = client;
 	}
-	public int getId_resto() {
-		return id_resto;
+	public Restaurant getRestaurant() {
+		return restaurant;
 	}
-	public void setId_resto(int id_resto) {
-		this.id_resto = id_resto;
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
 	}
 	public HashMap<Plat, Integer> getPlats() {
 		return plats;
@@ -32,6 +44,12 @@ public class Commande {
 	}
 	public void setDateCommande(Date dateCommande) {
 		DateCommande = dateCommande;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public void accepterCommande() {};
