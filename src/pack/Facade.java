@@ -38,17 +38,19 @@ public class Facade {
 	}
 	
 	public void addPlatResto(String nom, String description, String prix, File photo, String nomResto,Proprietaire proprio) {
-
+		int indexOfRs = 0;
 		int idResto = -1;
 		for (Restaurant r : proprio.getRestaurants()) {
 			if (r.getNom().equals(nomResto)) {
 				idResto = r.getId();
+				indexOfRs = proprio.getRestaurants().indexOf(r);
 			}
 		}
 		if (idResto != -1) {
 			Plat plat = new Plat(photo,nom,description,prix);
 			em.persist(plat);
 			plat.setResto(em.find(Restaurant.class, idResto));
+			proprio.getRestaurants().get(indexOfRs).ajouterPlat(plat);
 		} else {
 			System.out.println("resto inconnu");
 		}

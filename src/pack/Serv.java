@@ -183,18 +183,7 @@ public class Serv extends HttpServlet {
         		request.setAttribute("nbPlats",Integer.toString(nbPlatss));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
-				
-			case "ajoutAuPanier" :
-				Client clientap = (Client) session.getAttribute("utilisateur");
-				int quantite = Integer.parseInt(request.getParameter("quantite"));
-				//f.ajouterAuPanier(Resto,Plat,client,quantite);
-				request.getRequestDispatcher("restau.html").forward(request, response);
-				break;
-				
-			case "commander" : 
-				Client clientc = (Client) session.getAttribute("utilisateur");
-				request.getRequestDispatcher("homeClient.html").forward(request, response);
-				break;
+
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
         
