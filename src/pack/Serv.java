@@ -109,9 +109,6 @@ public class Serv extends HttpServlet {
 		        		request.setAttribute("prenom", utilisateur.getPrenom());
 		        		int nbRestaux = ((Proprietaire) utilisateur).getRestaurants().size();
 		        		int nbPlats = 0;
-		        		for (Restaurant resto : ((Proprietaire) utilisateur).getRestaurants()) {
-		        			nbPlats += resto.getPlats().size();
-		        		}
 		        		request.setAttribute("nbPlats",Integer.toString(nbPlats));
 		        		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 		        		request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
@@ -155,8 +152,11 @@ public class Serv extends HttpServlet {
         		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 				request.setAttribute("prenom", user.getPrenom());
 				int nbPlats = 0;
+				
         		for (Restaurant resto : ((Proprietaire) user).getRestaurants()) {
-        			nbPlats += resto.getPlats().size();
+        			if (!resto.getPlats().isEmpty()) {
+            			nbPlats += resto.getPlats().size();
+        			}
         		}
         		request.setAttribute("nbPlats",Integer.toString(nbPlats));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
@@ -176,7 +176,9 @@ public class Serv extends HttpServlet {
 				request.setAttribute("prenom", userr.getPrenom());
 				int nbPlatss = 0;
         		for (Restaurant resto : ((Proprietaire) userr).getRestaurants()) {
-        			nbPlatss += resto.getPlats().size();
+        			if (!resto.getPlats().isEmpty()) {
+            			nbPlatss += resto.getPlats().size();
+        			}
         		}
         		request.setAttribute("nbPlats",Integer.toString(nbPlatss));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);

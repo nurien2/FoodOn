@@ -1,6 +1,7 @@
 package pack;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class Restaurant {
 		this.photo = photo;
 		this.description = descrption;
 		this.adresse = adresse;
+		this.plats = new ArrayList<>();
 	}
 
 
