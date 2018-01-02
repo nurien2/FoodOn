@@ -23,13 +23,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item px-2">
-            <a href="homeProprietaire.jsp" class="nav-link active">Espace Propriétaire</a>
+            <a href="Serv?Operation=homeProprio" class="nav-link active">Espace Propriétaire</a>
           </li>
           <li class="nav-item px-2">
-            <a href="restaurants.jsp" class="nav-link">Restaurants</a>
+            <a href="Serv?operation=restaurants" class="nav-link">Restaurants</a>
           </li>
           <li class="nav-item px-2">
-            <a href="plats.jsp" class="nav-link">Plats</a>
+            <a href="Serv?operations=plats" class="nav-link">Plats</a>
           </li>
         </ul>
 

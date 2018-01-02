@@ -49,6 +49,19 @@ public class Serv extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		switch (operation) {
+			case "homeProprio" :
+				System.out.println("Servlet attaque homeProprio !!!");
+				Proprietaire proprio = (Proprietaire) session.getAttribute("utilisateur");
+				request.setAttribute("prenom", proprio.getPrenom());
+				int nbRestaux = 0;
+				int nbPlats = 0;
+				f.setProprieteProprio(proprio, nbRestaux, nbPlats);
+	        	request.setAttribute("nbPlats",Integer.toString(nbPlats));
+	        	request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
+	        	request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
+				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
+				break;
+				
 			case "restaurants" :
 				System.out.println("Servlet attaquee listerResto !!!");
 				Proprietaire user = (Proprietaire) session.getAttribute("utilisateur");

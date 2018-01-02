@@ -70,5 +70,12 @@ public class Facade {
 		return Users;
 	}
 	
+	public void setProprieteProprio(Proprietaire proprio, int nbRestos, int nbPlats) {
+		nbRestos = proprio.getRestaurants().size();
+		for (Restaurant r : proprio.getRestaurants()) {
+			nbPlats += r.getPlats().size();
+		}
+	}
+	
 	
 }
