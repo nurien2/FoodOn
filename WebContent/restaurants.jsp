@@ -97,9 +97,9 @@
   <section id="restaurants">
     <div class="container">
       <div class="row center">
+      		<form method="get" action="Serv">
       		<%
-      			Proprietaire user = (Proprietaire) request.getAttribute("user");
-      			List<Restaurant> lruser = user.getRestaurants();
+      			List<Restaurant> lruser = (List<Restaurant>) request.getAttribute("listeResto");
       			for (Restaurant resto : lruser) {
       		%>
       				<div class="col-md-3 m-4">
@@ -116,9 +116,11 @@
       		<%
       			}
       		%>
-	       
+      		<input type="hidden" name="operation" value="restaurants">
+	       	</form>
       </div>
     </div>
+    
   </section>
 
   <footer id="main-footer" class="bg-inverse text-white mt-5 p-5">

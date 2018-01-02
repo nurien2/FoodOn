@@ -3,6 +3,7 @@ package pack;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -37,7 +38,28 @@ public class Serv extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("DOOOOOOOOOOGEEEEEEEEET");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/html;charset=UTF-8");
+		
+		/* R�cup�ration de la session depuis la requ�te */
+        HttpSession session = request.getSession();
+		
+		
+		String operation = request.getParameter("operation");
+		PrintWriter out = response.getWriter();
+		
+		switch (operation) {
+			case "restaurants" :
+				System.out.println("Servlet attaquee listerResto !!!");
+				Proprietaire user = (Proprietaire) session.getAttribute("utilisateur");
+				List<Restaurant> listeResto = user.getRestaurants();
+				System.out.println(listeResto);
+				if (!listeResto.isEmpty()) { 
+						request.setAttribute("listeResto", listeResto);
+				}
+				request.getRequestDispatcher("restaurants.jsp").forward(request, response);
+				break;
+		}
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -104,7 +126,7 @@ public class Serv extends HttpServlet {
 				String descriptionResto = request.getParameter("editor1");
 				File photoResto = (File) request.getAttribute("photo");
 				f.addRestaurant((Proprietaire) session.getAttribute("utilisateur"), nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
-				request.getRequestDispatcher("restaurants.jsp").forward(request, response);
+				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
 			
 			case "ajouterPlatRestaurant" :
@@ -115,7 +137,18 @@ public class Serv extends HttpServlet {
 				String restoAssocie = request.getParameter("restaurant");
 				File photoPlat = (File) request.getAttribute("photo");
 				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,photoPlat,restoAssocie,(Proprietaire) session.getAttribute("utilisateur"));
-				request.getRequestDispatcher("plats.jsp").forward(request, response);
+				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
+				break;
+			
+			case "restaurants" :
+				System.out.println("Servlet attaquee listerResto !!!");
+				Proprietaire user = (Proprietaire) session.getAttribute("utilisateur");
+				List<Restaurant> listeResto = user.getRestaurants();
+				System.out.println(listeResto);
+				if (!listeResto.isEmpty()) { 
+						request.setAttribute("listeResto", listeResto);
+				}
+				request.getRequestDispatcher("restaurants.jsp").forward(request, response);
 				break;
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());

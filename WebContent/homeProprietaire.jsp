@@ -127,7 +127,7 @@
             <div class="card-block">
               <h3>Restaurants</h3>
               <h1 class="display-4"><i class="fa fa-cutlery"></i> 3</h1>
-              <a href="restaurants.html" class="btn btn-sm btn-outline-secondary text-white">Voir</a>
+              <a href="restaurants.jsp" class="btn btn-sm btn-outline-secondary text-white">Voir</a>
             </div>
           </div>
 
