@@ -104,7 +104,7 @@ public class Serv extends HttpServlet {
 				String descriptionResto = request.getParameter("editor1");
 				File photoResto = (File) request.getAttribute("photo");
 				f.addRestaurant((Proprietaire) session.getAttribute("utilisateur"), nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
-				request.getRequestDispatcher("homeProprietaire.html").forward(request, response);
+				request.getRequestDispatcher("restaurants.jsp").forward(request, response);
 				break;
 			
 			case "ajouterPlatRestaurant" :
@@ -115,7 +115,7 @@ public class Serv extends HttpServlet {
 				String restoAssocie = request.getParameter("restaurant");
 				File photoPlat = (File) request.getAttribute("photo");
 				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,photoPlat,restoAssocie,(Proprietaire) session.getAttribute("utilisateur"));
-				request.getRequestDispatcher("homeProprietaire.html").forward(request, response);
+				request.getRequestDispatcher("plats.jsp").forward(request, response);
 				break;
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
