@@ -139,11 +139,11 @@
           <div class="card text-center card-success text-white mb-3">
             <div class="card-block">
               <h3>Plats</h3>
-              <h1 class="display-4"><i class="fa fa-spoon"></i> <%= nbPlats%></h1>
+              <h1 class="display-4"><i class="fa fa-spoon"></i> <%= nbPlats %></h1>
               <form role="form" method="get" action="Serv" id="getPlats">
               	<input type="hidden" name="operation" value="plats">
               </form>
-              <a href="plats.html" class="btn btn-sm btn-outline-secondary text-white" onclick='$("#getPlats").submit();'>Voir</a>
+              <a  class="btn btn-sm btn-outline-secondary text-white" onclick='$("#getPlats").submit();'>Voir</a>
             </div>
           </div>
 
