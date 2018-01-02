@@ -139,17 +139,7 @@ public class Serv extends HttpServlet {
 				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,photoPlat,restoAssocie,(Proprietaire) session.getAttribute("utilisateur"));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
-			
-			case "restaurants" :
-				System.out.println("Servlet attaquee listerResto !!!");
-				Proprietaire user = (Proprietaire) session.getAttribute("utilisateur");
-				List<Restaurant> listeResto = user.getRestaurants();
-				System.out.println(listeResto);
-				if (!listeResto.isEmpty()) { 
-						request.setAttribute("listeResto", listeResto);
-				}
-				request.getRequestDispatcher("restaurants.jsp").forward(request, response);
-				break;
+
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
         
