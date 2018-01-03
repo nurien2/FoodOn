@@ -83,6 +83,13 @@ public class Serv extends HttpServlet {
 				request.setAttribute("prenom", userr.getPrenom());
 				request.getRequestDispatcher("plats.jsp").forward(request, response);
 				break;
+			
+			case "commander" : 
+				System.out.println("Servlet attaque commander");
+				Client clientC = (Client) session.getAttribute("utilisateur");
+				f.addCommander(clientC);
+				request.getRequestDispatcher("homeClient.html").forward(request, response);
+				break;
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -179,6 +186,17 @@ public class Serv extends HttpServlet {
         		request.setAttribute("nbPlats",Integer.toString(nbPlatss));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
+				
+			case "ajoutPanier" :
+				System.out.println("Servlet attaque ajoutPanier");
+				Client clientAP = (Client) session.getAttribute("utilisateur");
+				Plat platAP = (Plat) request.getAttribute("plat");
+				Restaurant restoAP = platAP.getResto();
+				int quantite = Integer.parseInt("quantite");
+				f.addPlatPanier(clientAP,restoAP,platAP,quantite);
+				request.getRequestDispatcher("restaurant.html").forward(request, response);
+				break;
+			
 
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());

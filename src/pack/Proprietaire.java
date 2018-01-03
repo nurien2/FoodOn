@@ -12,8 +12,8 @@ public class Proprietaire extends Client {
 	@OneToMany(mappedBy="proprietaire", fetch = FetchType.EAGER)
 	List<Restaurant> restaurants;
 	
-	
-	//List<Commande> commandes;
+	@OneToMany
+	List<Commande> commandes;
 	
 	public Proprietaire() {};
 	
@@ -23,6 +23,14 @@ public class Proprietaire extends Client {
 	
 	
 	
+	public List<Commande> getCommandes() {
+		return commandes;
+	}
+
+	public void setCommandes(List<Commande> commandes) {
+		this.commandes = commandes;
+	}
+
 	public List<Restaurant> getRestaurants() {
 		return restaurants;
 	}
@@ -39,6 +47,10 @@ public class Proprietaire extends Client {
 
 	public void addResto(Restaurant resto) {
 		this.restaurants.add(resto);		
-	};
+	}
+
+	public void addCommande(Commande commande) {
+		this.commandes.add(commande);
+	}
 
 }

@@ -78,12 +78,12 @@ public class Client {
 	public void setGouts(String gouts) {
 		this.gouts = gouts;
 	}
-	/*public Commande getCommandeEnCours() {
+	public Commande getCommandeEnCours() {
 		return commandeEnCours;
 	}
 	public void setCommandeEnCours(Commande commandeEnCours) {
 		this.commandeEnCours = commandeEnCours;
-	}*/
+	}
 	/*public List<String> getNotifications() {
 		return notifications;
 	}

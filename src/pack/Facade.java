@@ -89,6 +89,24 @@ public class Facade {
 		}
 		return listePlat;
 	}
+
+	public void addPlatPanier(Client client, Restaurant resto, Plat plat, int quantite) {
+		if (client.getCommandeEnCours() == null) {
+			Commande commande = new Commande(client,resto,plat,quantite);
+			em.persist(commande);
+		} else {
+			client.getCommandeEnCours().ajouterPlat(plat, quantite);
+		}
+		
+	}
+
+	public void addCommander(Client clientC) {
+		if (clientC.getCommandeEnCours() != null) {
+			Proprietaire prop = clientC.getCommandeEnCours().getRestaurant().getProprietaire();
+			prop.addCommande(clientC.getCommandeEnCours());
+		}
+		
+	}
 	
 	
 }

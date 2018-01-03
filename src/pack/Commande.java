@@ -20,8 +20,16 @@ public class Commande {
 	
 	@ManyToOne
 	Restaurant restaurant;
-	HashMap<Plat,Integer> plats;
+	HashMap<Plat,Integer> plats = new HashMap<Plat,Integer>();
 	Date DateCommande;
+	
+	public Commande(Client client, Restaurant resto, Plat plat, int quantite) {
+		this.client = client;
+		this.restaurant = resto;
+		this.plats.put(plat,quantite);
+		this.DateCommande = new Date();
+		
+	}
 	public Client getClient() {
 		return client;
 	}
