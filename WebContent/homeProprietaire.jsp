@@ -29,7 +29,7 @@
             <a href="Serv?operation=restaurants" class="nav-link">Restaurants</a>
           </li>
           <li class="nav-item px-2">
-            <a href="Serv?operations=plats" class="nav-link">Plats</a>
+            <a href="Serv?operation=plats" class="nav-link">Plats</a>
           </li>
         </ul>
 

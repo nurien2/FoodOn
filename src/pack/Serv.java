@@ -53,9 +53,8 @@ public class Serv extends HttpServlet {
 				System.out.println("Servlet attaque homeProprio !!!");
 				Proprietaire proprio = (Proprietaire) session.getAttribute("utilisateur");
 				request.setAttribute("prenom", proprio.getPrenom());
-				int nbRestaux = 0;
-				int nbPlats = 0;
-				f.setProprieteProprio(proprio, nbRestaux, nbPlats);
+				int nbRestaux = f.getNbRestos(proprio);
+				int nbPlats = f.getNbPlats(proprio);
 	        	request.setAttribute("nbPlats",Integer.toString(nbPlats));
 	        	request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 	        	request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
@@ -77,12 +76,7 @@ public class Serv extends HttpServlet {
 			case "plats":
 				System.out.println("Servlet attaquee listerPlats !!!");
 				Proprietaire userr = (Proprietaire) session.getAttribute("utilisateur");
-				List<Plat> listePlats = new ArrayList<Plat>();
-				for (Restaurant resto : userr.getRestaurants()) {
-					for(Plat plat : resto.getPlats()) {
-						listePlats.add(plat);
-					}
-				}
+				List<Plat> listePlats = f.listerPlats(userr);
 				if (!listePlats.isEmpty()) { 
 					request.setAttribute("listePlats", listePlats);
 				}
@@ -120,8 +114,8 @@ public class Serv extends HttpServlet {
 		        	session.setAttribute("utilisateur", utilisateur );
 		        	if (utilisateur instanceof Proprietaire) {
 		        		request.setAttribute("prenom", utilisateur.getPrenom());
-		        		int nbRestaux = ((Proprietaire) utilisateur).getRestaurants().size();
-		        		int nbPlats = 0;
+		        		int nbRestaux = f.getNbRestos((Proprietaire) utilisateur);
+		        		int nbPlats = f.getNbPlats((Proprietaire) utilisateur);
 		        		request.setAttribute("nbPlats",Integer.toString(nbPlats));
 		        		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 		        		request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
@@ -161,16 +155,10 @@ public class Serv extends HttpServlet {
 				File photoResto = (File) request.getAttribute("photo");
 				Proprietaire user = (Proprietaire) session.getAttribute("utilisateur");
 				f.addRestaurant(user , nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
-				int nbRestaux = ((Proprietaire) user).getRestaurants().size();
+				int nbRestaux = f.getNbRestos((Proprietaire) user);
         		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 				request.setAttribute("prenom", user.getPrenom());
-				int nbPlats = 0;
-				
-        		for (Restaurant resto : ((Proprietaire) user).getRestaurants()) {
-        			if (!resto.getPlats().isEmpty()) {
-            			nbPlats += resto.getPlats().size();
-        			}
-        		}
+				int nbPlats = f.getNbPlats((Proprietaire) user);
         		request.setAttribute("nbPlats",Integer.toString(nbPlats));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
@@ -184,15 +172,10 @@ public class Serv extends HttpServlet {
 				File photoPlat = (File) request.getAttribute("photo");
 				Proprietaire userr = (Proprietaire) session.getAttribute("utilisateur");
 				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,photoPlat,restoAssocie,userr);
-				int nbRestau = ((Proprietaire) userr).getRestaurants().size();
+				int nbRestau = f.getNbRestos((Proprietaire) userr);
         		request.setAttribute("nbRestaux",Integer.toString(nbRestau));
 				request.setAttribute("prenom", userr.getPrenom());
-				int nbPlatss = 0;
-        		for (Restaurant resto : ((Proprietaire) userr).getRestaurants()) {
-        			if (!resto.getPlats().isEmpty()) {
-            			nbPlatss += resto.getPlats().size();
-        			}
-        		}
+				int nbPlatss = f.getNbPlats((Proprietaire) userr);
         		request.setAttribute("nbPlats",Integer.toString(nbPlatss));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
