@@ -90,8 +90,16 @@ public class Serv extends HttpServlet {
 				f.addCommander(clientC);
 				request.getRequestDispatcher("homeClient.html").forward(request, response);
 				break;
+			case "platsRestaurant" :
+				System.out.println("Servlet attaque plats dun restaurant");
+				Client client = (Client) session.getAttribute("utilisateur");
+				int restoId = Integer.parseInt(request.getParameter("restaurant"));
+				List<Plat> listePlatsResto = f.getPlatsRestaurant(restoId);
+				request.setAttribute("prenom", client.getPrenom());
+				request.setAttribute("listePlatsResto", listePlatsResto);
+				request.getRequestDispatcher("restaurant.jsp").forward(request, response);
+				break;
 		}
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -119,15 +127,17 @@ public class Serv extends HttpServlet {
 		        if ((utilisateur = ValidationUser.verifierUser(f, email, pass)) != null) {
 		        	out.println("Bienvenue " + utilisateur.getPrenom());
 		        	session.setAttribute("utilisateur", utilisateur );
+		        	request.setAttribute("prenom", utilisateur.getPrenom());
 		        	if (utilisateur instanceof Proprietaire) {
-		        		request.setAttribute("prenom", utilisateur.getPrenom());
 		        		int nbRestaux = f.getNbRestos((Proprietaire) utilisateur);
 		        		int nbPlats = f.getNbPlats((Proprietaire) utilisateur);
 		        		request.setAttribute("nbPlats",Integer.toString(nbPlats));
 		        		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 		        		request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 		        	} else {
-		        		request.getRequestDispatcher("homeClient.html").forward(request, response);
+		        		List<Restaurant> restaurantsProposes = f.getRestaurantsProposes(utilisateur);
+		        		request.setAttribute("listeRestaux",restaurantsProposes);
+		        		request.getRequestDispatcher("homeClient.jsp").forward(request, response);
 		        	}
 		        } else {
 		           out.println("Adresse ou mdp incorrects");

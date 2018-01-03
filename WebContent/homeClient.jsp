@@ -100,7 +100,9 @@
           
           <%
       			List<Restaurant> lrestos = (List<Restaurant>) request.getAttribute("listeRestaux");
+          		int i = 0;
       			for (Restaurant resto : lrestos) {
+      				i++;
       	  %>
       	  
           <div class="col-md-3 m-4">
@@ -109,7 +111,11 @@
                 <div class="card-block">
                     <h4 class="card-title"><%= resto.getNom() %></h4>
                     <p class="card-text"><%= resto.getDescription() %> </p>
-                     <a href="restaurant.html" class="btn btn-success btn-block">Détails</a>
+                    <form role="form" method="get" action="Serv" id="getPlats<%=i%>">
+              			<input type="hidden" name="operation" value="platsRestaurant">
+              			<input type="hidden" name="restaurant" value="<%= resto.getId()%>">
+              		</form>
+                    <a class="btn btn-success btn-block" onclick='$("#getPlats<%=i%>").submit();'>Détails</a>
                 </div>
             </div>
           </div>

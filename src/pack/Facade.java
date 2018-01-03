@@ -70,6 +70,12 @@ public class Facade {
 		return Users;
 	}
 	
+	public List<Restaurant> getListeRestaurants() {
+		TypedQuery<Restaurant> req = em.createQuery("select restaurant from pack.Restaurant restaurant", Restaurant.class);
+		List<Restaurant> listeRestaux = req.getResultList();
+		return listeRestaux;
+	}
+	
 	public int getNbRestos(Proprietaire proprio) {
 		return proprio.getRestaurants().size();
 	}
@@ -106,6 +112,19 @@ public class Facade {
 			prop.addCommande(clientC.getCommandeEnCours());
 		}
 		
+	}
+	
+	public List<Restaurant> getRestaurantsProposes(Client client) {
+		List<Restaurant> listeRestaux = this.getListeRestaurants();
+		for (Restaurant resto : listeRestaux) {
+			// après on va voir quel critère
+		}
+		return listeRestaux;
+	}
+	
+	public List<Plat> getPlatsRestaurant(int idResto) {
+		Restaurant resto = em.find(Restaurant.class, idResto);
+		return resto.getPlats();
 	}
 	
 	
