@@ -59,7 +59,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <h1><i class="fa fa-gear"></i>Espace Client</h1>
+          <h1><i class="fa fa-cutlery"></i>Restaurant</h1>
         </div>
       </div>
     </div>
@@ -69,8 +69,11 @@
   <section id="actions" class="py-4 mb-4 bg-faded">
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
-          <a href="#" class="btn btn-success btn-block" data-toggle="modal" data-target="#chercherRes"><i class="fa fa-plus"></i>Chercher des Restaurants</a>
+        <div class="col-md-6">
+          <a href="#" class="btn btn-success btn-block"><i class="fa fa-plus"></i>Commencer la commande</a>
+        </div>
+        <div class="col-md-6">
+          <a href="#" class="btn btn-success btn-block"><i class="fa fa-plus"></i>Finaliser la commande</a>
         </div>
       </div>
     </div>
@@ -85,9 +88,11 @@
             <div class="card" style="width:20rem">
                 <img class="card-img-top" src="http://lorempixel.com/300/300/sports/" alt="Card image cap">
                 <div class="card-block">
-                    <h4 class="card-title">Nom Restaurant</h4>
+                    <h4 class="card-title">Nom Plat</h4>
+                    <h6>Nom restaurant</h6>
                     <p class="card-text">bla bla bla haha bla bla </p>
-                     <a href="restaurant.html" class="btn btn-success btn-block">Détails</a>
+                     <a class="btn btn-success btn-block">Ajouter au panier : <span>15 £</span</a>
+                     <a href="plat.html" class="btn btn-success btn-block">Détails</a>
                 </div>
             </div>
           </div>
@@ -95,9 +100,11 @@
             <div class="card" style="width:20rem">
                 <img class="card-img-top" src="http://lorempixel.com/300/300/sports/" alt="Card image cap">
                 <div class="card-block">
-                    <h4 class="card-title">Nom Restaurant</h4>
+                    <h4 class="card-title">Nom Plat</h4>
+                    <h6>Nom restaurant</h6>
                     <p class="card-text">bla bla bla haha bla bla </p>
-                     <a href="restaurant.html" class="btn btn-success btn-block">Détails</a>
+                     <a class="btn btn-success btn-block">Ajouter au panier : <span>15 £</span</a>
+                     <a href="plat.html" class="btn btn-success btn-block">Détails</a>
                 </div>
             </div>
           </div>
@@ -105,9 +112,11 @@
             <div class="card" style="width:20rem">
                 <img class="card-img-top" src="http://lorempixel.com/300/300/sports/" alt="Card image cap">
                 <div class="card-block">
-                    <h4 class="card-title">Nom Restaurant</h4>
+                    <h4 class="card-title">Nom Plat</h4>
+                    <h6>Nom restaurant</h6>
                     <p class="card-text">bla bla bla haha bla bla </p>
-                     <a href="restaurant.html" class="btn btn-success btn-block">Détails</a>
+                     <a class="btn btn-success btn-block">Ajouter au panier : <span>15 £</span</a>
+                     <a href="plat.html" class="btn btn-success btn-block">Détails</a>
                 </div>
             </div>
           </div>
@@ -115,9 +124,11 @@
             <div class="card" style="width:20rem">
                 <img class="card-img-top" src="http://lorempixel.com/300/300/sports/" alt="Card image cap">
                 <div class="card-block">
-                    <h4 class="card-title">Nom Restaurant</h4>
+                    <h4 class="card-title">Nom Plat</h4>
+                    <h6>Nom restaurant</h6>
                     <p class="card-text">bla bla bla haha bla bla </p>
-                     <a href="restaurant.html" class="btn btn-success btn-block">Détails</a>
+                     <a class="btn btn-success btn-block">Ajouter au panier : <span>15 £</span</a>
+                     <a href="plat.html" class="btn btn-success btn-block">Détails</a>
                 </div>
             </div>
           </div>
@@ -136,79 +147,6 @@
     </div>
   </footer>
 
-
-  <!-- ADD POST MODAL -->
-  <div class="modal fade" id="chercherRes">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="ajouterRestaurantLabel">Chercher Restaurant</h5>
-          <button class="close" data-dismiss="modal">
-            <span>&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="title" class="form-control-label">Nom</label>
-              <input type="text" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="category" class="form-control-label">Spécialité</label>
-              <input type="text" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="category" class="form-control-label">Ville</label>
-              <input type="text" class="form-control">
-            </div>
-
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-dismiss="modal">fermer</button>
-            <button class="btn btn-primary" data-dismiss="modal">Chercher</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ADD CATEGORY MODAL -->
-  <div class="modal fade" id="chercherPlat">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header bg-success text-white">
-          <h5 class="modal-title" id="ajouterPlatLabel">Chercher Plat</h5>
-          <button class="close" data-dismiss="modal">
-            <span>&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="title" class="form-control-label">Nom</label>
-              <input type="text" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="category" class="form-control-label">Restaurant</label>
-              <input type="text" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="category" class="form-control-label">Spécialité</label>
-              <input type="text" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="category" class="form-control-label">Ville</label>
-              <input type="text" class="form-control">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-            <button class="btn btn-success" data-dismiss="modal">chercher le plat</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
   <script src="js/jquery.min.js"></script>
