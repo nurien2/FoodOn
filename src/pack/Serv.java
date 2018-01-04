@@ -49,6 +49,12 @@ public class Serv extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		switch (operation) {
+			case "deconnexion" :
+				session.invalidate();  
+				out.print("Vous vous etes deconnecte"); 
+				request.getRequestDispatcher("Connexion.html").forward(request, response);
+				break;
+			
 			case "homeProprio" :
 				System.out.println("Servlet attaque homeProprio !!!");
 				Proprietaire proprio = (Proprietaire) session.getAttribute("utilisateur");
@@ -58,7 +64,7 @@ public class Serv extends HttpServlet {
 	        	request.setAttribute("nbPlats",Integer.toString(nbPlats));
 	        	request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 	        	request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
-				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
+				
 				break;
 				
 			case "restaurants" :
