@@ -15,6 +15,7 @@
         <class>pack.Proprietaire</class>
         <class>pack.Reservation</class>
         <class>pack.Restaurant</class>
+        <class>pack.Notification</class>
         
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />

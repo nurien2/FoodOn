@@ -60,8 +60,8 @@
               <a href="profil.html" class="dropdown-item">
                 <i class="fa fa-user-circle"></i>  Profil
               </a>
-              <a href="connexion.html" class="dropdown-item">
-                <i class="fa fa-user-times"></i> DÃ©connexion
+              <a href="Serv?operation=deconnexion" class="dropdown-item">
+                <i class="fa fa-user-times"></i> Déconnexion
               </a>
             </div>
           </li>
