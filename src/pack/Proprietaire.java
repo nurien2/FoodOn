@@ -12,7 +12,7 @@ public class Proprietaire extends Client {
 	@OneToMany(mappedBy="proprietaire", fetch = FetchType.EAGER)
 	List<Restaurant> restaurants;
 	
-	@OneToMany
+	@OneToMany(mappedBy="proprio", fetch = FetchType.EAGER)
 	List<Commande> commandes;
 	
 	public Proprietaire() {};

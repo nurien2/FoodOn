@@ -21,17 +21,11 @@
       <button class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a href="Serv?operation=homeProprio" class="navbar-brand mr-5">FoodOn</a>
+      <a href="Serv?operation=homeClient" class="navbar-brand mr-5">FoodOn</a>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item px-2">
-            <a href="Serv?Operation=homeProprio" class="nav-link active">Espace Propriétaire</a>
-          </li>
-          <li class="nav-item px-2">
-            <a href="Serv?operation=restaurants" class="nav-link">Restaurants</a>
-          </li>
-          <li class="nav-item px-2">
-            <a href="Serv?operation=plats" class="nav-link">Plats</a>
+            <a href="Serv?operation=homeClient" class="nav-link active">Espace Client</a>
           </li>
         </ul>
 
@@ -80,6 +74,16 @@
     </div>
   </header>
 
+  <!-- ACTIONS -->
+  <section id="actions" class="py-4 mb-4 bg-faded">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <a href="Serv?operation=commander" class="btn btn-success btn-block"><i class="fa fa-plus"></i>Finaliser la commande</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- POSTS -->
   <section id="posts">
@@ -101,6 +105,12 @@
 	                    <h4 class="card-title"><%= plat.getNom()%></h4>
 	                    <h6>..</h6>
 	                    <p class="card-text">..</p>
+	                    <form role="form" method="get" action="Serv" id="getPlat<%=i%>">
+	                    	  	<input type="text" name="quantite" id="quantite" placeholder="quantite">
+	                    		<input type="hidden" name="operation" value="ajoutPanier">
+	                    		<input type="hidden" name="plat" value= "<%= plat.getId()%>">
+	                     		<a class="btn btn-success btn-block" onclick='$("#getPlat<%=i%>").submit();'>Ajouter au panier : <span><%= plat.getPrix() %>> €</span></a>
+	                     </form>
 	                     <a href="plat.html" class="btn btn-success btn-block">Détails</a>	                    
 	                </div>
 	            </div>

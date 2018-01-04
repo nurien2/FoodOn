@@ -21,10 +21,10 @@ public class Facade {
 	
 	public void addClient(String prenom, String nom, String pseudo, String mdp, String adresseMail, String adresse, String gouts, Boolean isClient) {
 		if (isClient) {
-			Client client = new Client(nom, prenom, pseudo, mdp, adresseMail, adresse, gouts);
+			Client client = new Client(prenom, nom, pseudo, mdp, adresseMail, adresse, gouts);
 			em.persist(client);
 		} else {
-			Proprietaire proprietaire = new Proprietaire(nom, prenom, pseudo, mdp, adresseMail, adresse, gouts);
+			Proprietaire proprietaire = new Proprietaire(prenom, nom, pseudo, mdp, adresseMail, adresse, gouts);
 			em.persist(proprietaire);
 		}
 		
@@ -96,20 +96,25 @@ public class Facade {
 		return listePlat;
 	}
 
-	public void addPlatPanier(Client client, Restaurant resto, Plat plat, int quantite) {
+	public void addPlatPanier(Client client,int platId, int quantite) {
+		Plat plat = em.find(Plat.class, platId);
 		if (client.getCommandeEnCours() == null) {
-			Commande commande = new Commande(client,resto,plat,quantite);
+			Commande commande = new Commande(client,plat.getResto(),plat,quantite);
 			em.persist(commande);
+			commande.setClient(client);
+			commande.setRestaurant(plat.getResto());
+			commande.setPropio(plat.getResto().getProprietaire());
 		} else {
 			client.getCommandeEnCours().ajouterPlat(plat, quantite);
 		}
 		
 	}
 
-	public void addCommander(Client clientC) {
-		if (clientC.getCommandeEnCours() != null) {
-			Proprietaire prop = clientC.getCommandeEnCours().getRestaurant().getProprietaire();
-			prop.addCommande(clientC.getCommandeEnCours());
+	public void addCommander(int clientId) {
+		Client client = em.find(Client.class, clientId);
+		if (client.getCommandeEnCours() != null) {
+			Proprietaire prop = client.getCommandeEnCours().getRestaurant().getProprietaire();
+			prop.addCommande(client.getCommandeEnCours());
 		}
 		
 	}
@@ -117,7 +122,7 @@ public class Facade {
 	public List<Restaurant> getRestaurantsProposes(Client client) {
 		List<Restaurant> listeRestaux = this.getListeRestaurants();
 		for (Restaurant resto : listeRestaux) {
-			// après on va voir quel critère
+			// aprï¿½s on va voir quel critï¿½re
 		}
 		return listeRestaux;
 	}

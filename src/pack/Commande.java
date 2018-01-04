@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.HashMap;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -12,24 +15,31 @@ import javax.persistence.OneToOne;
 public class Commande {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
 	
 
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
 	Client client;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	Proprietaire proprio;
 	
 	@ManyToOne
 	Restaurant restaurant;
-	HashMap<Plat,Integer> plats = new HashMap<Plat,Integer>();
+	
+	HashMap<Integer,Integer> plats = new HashMap<Integer,Integer>();
 	Date DateCommande;
 	
 	public Commande(Client client, Restaurant resto, Plat plat, int quantite) {
 		this.client = client;
 		this.restaurant = resto;
-		this.plats.put(plat,quantite);
+		this.plats.put(plat.getId(),quantite);
 		this.DateCommande = new Date();
 		
 	}
+	public Commande() {};
+	
 	public Client getClient() {
 		return client;
 	}
@@ -42,10 +52,10 @@ public class Commande {
 	public void setRestaurant(Restaurant restaurant) {
 		this.restaurant = restaurant;
 	}
-	public HashMap<Plat, Integer> getPlats() {
+	public HashMap<Integer, Integer> getPlats() {
 		return plats;
 	}
-	public void setPlats(HashMap<Plat, Integer> plats) {
+	public void setPlats(HashMap<Integer, Integer> plats) {
 		this.plats = plats;
 	}
 	public Date getDateCommande() {
@@ -61,6 +71,12 @@ public class Commande {
 		this.id = id;
 	}
 	
+	public Proprietaire getPropio() {
+		return proprio;
+	}
+	public void setPropio(Proprietaire propio) {
+		this.proprio = propio;
+	}
 	public void accepterCommande() {};
 	
 	public void refuserCommande() {};
@@ -68,18 +84,18 @@ public class Commande {
 	public void annulerCommande() {};
 	
 	public void ajouterPlat(Plat plat, int quantite) {
-		if (!this.plats.containsKey(plat)) {
-			this.plats.put(plat,quantite);
+		if (!this.plats.containsKey(plat.getId())) {
+			this.plats.put(plat.getId(),quantite);
 		} else {
-			this.plats.put(plat,this.plats.get(plat) + quantite);
+			this.plats.put(plat.getId(),this.plats.get(plat.getId()) + quantite);
 		}
 	}
 	
 	public void retirerPlat(Plat plat, int quantite) {
-		if (this.plats.containsKey(plat)) {
-			this.plats.put(plat,this.plats.get(plat) - quantite);
-			if (this.plats.get(plat) <= 0) {
-				this.plats.remove(plat);
+		if (this.plats.containsKey(plat.getId())) {
+			this.plats.put(plat.getId(),this.plats.get(plat.getId()) - quantite);
+			if (this.plats.get(plat.getId()) <= 0) {
+				this.plats.remove(plat.getId());
 			}
 		}
 	}
