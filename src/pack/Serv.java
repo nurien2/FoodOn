@@ -49,12 +49,19 @@ public class Serv extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		switch (operation) {
+
 			case "deconnexion" :
 				session.invalidate();  
 				out.print("Vous vous etes deconnecte"); 
 				request.getRequestDispatcher("Connexion.html").forward(request, response);
 				break;
-			
+		
+			case "homeClient" :
+				System.out.println("servlet attaque homeClient !!!");
+				Client clientHC = (Client) session.getAttribute("utilisateur");
+				request.setAttribute("listeRestaux", f.getRestaurantsProposes(clientHC));				
+				request.getRequestDispatcher("homeClient.jsp").forward(request, response);
+				break;				
 			case "homeProprio" :
 				System.out.println("Servlet attaque homeProprio !!!");
 				Proprietaire proprio = (Proprietaire) session.getAttribute("utilisateur");
@@ -63,8 +70,7 @@ public class Serv extends HttpServlet {
 				int nbPlats = f.getNbPlats(proprio);
 	        	request.setAttribute("nbPlats",Integer.toString(nbPlats));
 	        	request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
-	        	request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
-				
+				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
 				
 			case "restaurants" :
@@ -93,8 +99,9 @@ public class Serv extends HttpServlet {
 			case "commander" : 
 				System.out.println("Servlet attaque commander");
 				Client clientC = (Client) session.getAttribute("utilisateur");
-				f.addCommander(clientC);
-				request.getRequestDispatcher("homeClient.html").forward(request, response);
+				f.addCommander(clientC.getId());
+				request.setAttribute("listeRestaux", f.getRestaurantsProposes(clientC));
+				request.getRequestDispatcher("homeClient.jsp").forward(request, response);
 				break;
 			case "platsRestaurant" :
 				System.out.println("Servlet attaque plats dun restaurant");
@@ -103,7 +110,21 @@ public class Serv extends HttpServlet {
 				List<Plat> listePlatsResto = f.getPlatsRestaurant(restoId);
 				request.setAttribute("prenom", client.getPrenom());
 				request.setAttribute("listePlatsResto", listePlatsResto);
-				request.getRequestDispatcher("restaurant.jsp").forward(request, response);
+				session.setAttribute("restoID", restoId);
+				request.getRequestDispatcher("restaurantClient.jsp").forward(request, response);
+				break;
+				
+			case "ajoutPanier" :
+				System.out.println("Servlet attaque ajoutPanier");
+				Client clientAP = (Client) session.getAttribute("utilisateur");
+				int platAPid = Integer.parseInt(request.getParameter("plat"));
+				int quantite = Integer.parseInt(request.getParameter("quantite"));
+				f.addPlatPanier(clientAP,platAPid,quantite);
+				int rid = (int) session.getAttribute("restoID");
+				List<Plat> listePlatsRestau = f.getPlatsRestaurant(rid);
+				request.setAttribute("listePlatsResto", listePlatsRestau);
+				request.setAttribute("prenom", clientAP.getPrenom());
+				request.getRequestDispatcher("restaurantClient.jsp").forward(request, response);
 				break;
 		}
 	}
@@ -203,15 +224,7 @@ public class Serv extends HttpServlet {
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
 				
-			case "ajoutPanier" :
-				System.out.println("Servlet attaque ajoutPanier");
-				Client clientAP = (Client) session.getAttribute("utilisateur");
-				Plat platAP = (Plat) request.getAttribute("plat");
-				Restaurant restoAP = platAP.getResto();
-				int quantite = Integer.parseInt("quantite");
-				f.addPlatPanier(clientAP,restoAP,platAP,quantite);
-				request.getRequestDispatcher("restaurant.html").forward(request, response);
-				break;
+
 			
 
 		}
