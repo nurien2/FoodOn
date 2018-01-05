@@ -10,7 +10,8 @@
          
         <class>pack.Client</class>
         <class>pack.Commande</class>
-        <class>pack.Commentaire</class>
+        <class>pack.CommentairePlat</class>
+        <class>pack.CommentaireResto</class>
         <class>pack.Plat</class>
         <class>pack.Proprietaire</class>
         <class>pack.Reservation</class>
