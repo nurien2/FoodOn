@@ -117,5 +117,16 @@ public class Restaurant {
 	public void retirerPlat(Plat plat) {
 		this.plats.remove(plat);
 	}
+
+
+	public List<CommentaireResto> getCommentaires() {
+		return commentaires;
+	}
+
+
+	public void setCommentaires(List<CommentaireResto> commentaires) {
+		this.commentaires = commentaires;
+	}
+	
 	
 }

@@ -77,6 +77,14 @@ public class Plat {
 		this.description = description;
 		this.prix = prix;
 	}
+
+	public List<CommentairePlat> getCommentaires() {
+		return commentaires;
+	}
+
+	public void setCommentaires(List<CommentairePlat> commentaires) {
+		this.commentaires = commentaires;
+	}
 	
 	
 	
