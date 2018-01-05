@@ -2,6 +2,7 @@ package pack;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 //import javax.ejb.Remote;
@@ -130,6 +131,41 @@ public class Facade {
 	public List<Plat> getPlatsRestaurant(int idResto) {
 		Restaurant resto = em.find(Restaurant.class, idResto);
 		return resto.getPlats();
+	}
+	
+	
+	
+	public void commenterPlat(int idClient,int idPlat,CommentairePlat c){
+		Client client=em.find(Client.class, idClient);
+		Plat plat=em.find(Plat.class, idPlat);
+	    c.setClient(client);
+	    c.setPlat(plat);
+	    c.setDate_commentaire(new Date());
+	    em.persist(c);	        
+	}
+	
+	public void commenterResto(int idClient,int idResto,CommentaireResto c){
+		Client client=em.find(Client.class, idClient);
+		Restaurant resto=em.find(Restaurant.class, idResto);
+	    c.setClient(client);
+	    c.setResto(resto);
+	    c.setDate_commentaire(new Date());
+	    em.persist(c);	     
+	    	    
+	}
+	public List<CommentairePlat> get_Commentaires_Plat(int idPlat) {
+		Plat p=em.find(Plat.class, idPlat);
+		
+		return p.getCommentaires();
+		
+		
+	}
+	public List<CommentaireResto> get_Commentaires_Resto(int idResto) {
+		Restaurant r=em.find(Restaurant.class, idResto);
+		
+		return r.getCommentaires();
+		
+		
 	}
 	
 	
