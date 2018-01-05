@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Plat {
@@ -21,11 +22,13 @@ public class Plat {
 	String nom;
 	String description;
 	String prix;
-	HashMap<Integer,Commentaire> commentaires;
+	
 	
 	@ManyToOne
 	Restaurant resto;
 	
+	@OneToMany(mappedBy="plat")
+	List<CommentairePlat> commentaires;
 	public Plat() {};
 	
 	public int getId() {
@@ -58,21 +61,15 @@ public class Plat {
 	public void setPrix(String prix) {
 		this.prix = prix;
 	}
-	public HashMap<Integer, Commentaire> getCommentaires() {
-		return commentaires;
-	}
-	public void setCommentaires(HashMap<Integer, Commentaire> commentaires) {
-		this.commentaires = commentaires;
-	}	
+	
+		
 	public Restaurant getResto() {
 		return resto;
 	}
 	public void setResto(Restaurant resto) {
 		this.resto = resto;
 	}
-	public void Commenter(Commentaire commentaire) {
-		this.commentaires.put(commentaire.getIdClient(), commentaire);
-	}
+	
 	public Plat(File photo, String nom, String description, String prix) {
 		super();
 		this.photo = photo;

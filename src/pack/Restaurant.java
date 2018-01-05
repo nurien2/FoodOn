@@ -36,8 +36,8 @@ public class Restaurant {
 	List<Plat> plats;
 	
 	
-	
-	HashMap<Integer,Commentaire> commentaires;
+	@OneToMany(mappedBy="Resto")
+	List<CommentaireResto> commentaires;
 	
 	public Restaurant() {};
 
@@ -106,16 +106,7 @@ public class Restaurant {
 	public void setPlats(List<Plat> plats) {
 		this.plats = plats;
 	}
-	public HashMap<Integer, Commentaire> getCommentaires() {
-		return commentaires;
-	}
-	public void setCommentaires(HashMap<Integer, Commentaire> commentaires) {
-		this.commentaires = commentaires;
-	}
 	
-	public void commenter(Commentaire commentaire) {
-		this.commentaires.put(commentaire.idClient, commentaire);
-	}
 	
 	public void ajouterPlat(Plat plat) {
 		if (!this.plats.contains(plat)) {

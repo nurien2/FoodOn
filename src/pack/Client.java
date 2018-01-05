@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -24,6 +25,12 @@ public class Client {
 	@OneToOne
 	Commande commandeEnCours;
 	//List<String> notifications;
+	
+	@OneToMany(mappedBy="client")
+	List<CommentairePlat> commentairesPlat;
+	
+	@OneToMany(mappedBy="client")
+	List<CommentaireResto> commentairesResto;
 	
 	public Client() {};
 	
