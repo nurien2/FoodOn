@@ -180,7 +180,29 @@ public class Facade {
 		}
 	
 	
-	
+		public void modifierProfil(Client client, String nom, String prenom, String adresse, String adresseMail, String pseudo) {
+			Client cli = em.find(Client.class,client.getId());
+			cli.setAdresse(adresse);
+			cli.setAdresseMail(adresseMail);
+			cli.setNom(nom);
+			cli.setPrenom(prenom);
+			cli.setPseudo(pseudo);
+			em.merge(cli);
+		}
+		public Client getClientparId (int idClient) {
+			return em.find(Client.class, idClient);
+		}
+
+		public boolean modifierMDP(Client client, String oldmdp, String newmdp) {
+			Client cli = em.find(Client.class, client.getId());
+			if (cli.getMdp().equals(oldmdp)) {
+				cli.setMdp(newmdp);
+				em.merge(cli);
+				return true;
+			} else {
+				return false;
+			}
+		}
 	
 	
 	

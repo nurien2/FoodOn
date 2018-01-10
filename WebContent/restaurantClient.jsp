@@ -34,11 +34,11 @@
           <li class="nav-item dropdown mr-3">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a>
             <div class="dropdown-menu">
-              <a href="profil.html" class="dropdown-item">
-                <i class="fa fa-user-circle"></i>  blab la
+              <a href="Serv?operation=profil" class="dropdown-item">
+                <i class="fa fa-user-circle"></i>  Profil
               </a>
               <a href="connexion.html" class="dropdown-item">
-                <i class="fa fa-user-times"></i> blabla
+                <i class="fa fa-user-times"></i> DÃ©connexion
               </a>
             </div>
           </li>
@@ -55,7 +55,7 @@
                 <i class="fa fa-user-circle"></i>  Profil
               </a>
               <a href="Serv?operation=deconnexion" class="dropdown-item">
-                <i class="fa fa-user-times"></i> Déconnexion
+                <i class="fa fa-user-times"></i> Dï¿½connexion
               </a>
             </div>
           </li>
@@ -121,7 +121,7 @@
 	                     
 	                     
 	                     
-	                     <a  class="btn btn-success btn-block" onclick='$("#getComm<%=i%>").submit();'>Détails</a>	                    
+	                     <a  class="btn btn-success btn-block" onclick='$("#getComm<%=i%>").submit();'>Dï¿½tails</a>	                    
 	                </div>
 	            </div>
 	          </div>

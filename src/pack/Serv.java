@@ -56,6 +56,13 @@ public class Serv extends HttpServlet {
 		
 		switch (operation) {
 
+			case "profil" :
+				System.out.println("servlet attaque profil !!!");
+				Client clientP = (Client) session.getAttribute("utilisateur");
+				request.setAttribute("clientP", clientP);
+				request.getRequestDispatcher("profil.jsp").forward(request, response);
+				break;
+		
 			case "deconnexion" :
 				session.invalidate();  
 				out.print("Vous vous etes deconnecte"); 
@@ -241,13 +248,11 @@ public class Serv extends HttpServlet {
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
 			
-case "ajouterPlatRestaurant" :
+			case "ajouterPlatRestaurant" :
+			
 				
 				
-				
-				
-				
-				//début  partie  qui concerne l'ajout de l'image 
+				//dï¿½but  partie  qui concerne l'ajout de l'image 
 				Part part = request.getPart("photo");
 		        String fileName = extractFileName(part);
 		        String savePaths = "D:\\j2eetestt\\FoodOn\\WebContent\\images\\" + File.separator + fileName;
@@ -308,7 +313,32 @@ case "ajouterPlatRestaurant" :
 				break;
 				
 				
-
+			case "validerModifs" :
+				System.out.println("servlet attaque modif !!!");
+				Client clientVM = (Client) session.getAttribute("utilisateur");
+				String nomVM = request.getParameter("nom");
+				String prenomVM = request.getParameter("prenom");
+				String adresseVM = request.getParameter("adresse");
+				String adresseMailVM = request.getParameter("email");
+				String pseudoVM = request.getParameter("pseudo");
+				f.modifierProfil(clientVM,nomVM,prenomVM,adresseVM,adresseMailVM,pseudoVM);
+				request.setAttribute("clientP", f.getClientparId(clientVM.getId()));
+				request.getRequestDispatcher("profil.jsp").forward(request, response);
+				break;
+				
+			case "modifMDP" :
+				System.out.println("servlet attaque modifMDP !!!");
+				Client clientMDP = (Client) session.getAttribute("utilisateur");
+				String oldmdp = request.getParameter("oldmdp");
+				String newmdp = request.getParameter("newmdp");
+				boolean verif = f.modifierMDP(clientMDP,oldmdp,newmdp);
+				if (!verif) {
+					out.println("ancien mot de passe incorrect");
+				}
+				Client clientModifie = (Client) session.getAttribute("utilisateur");
+				request.setAttribute("clientP", clientModifie);
+				request.getRequestDispatcher("profil.jsp").forward(request, response);
+				break;
 			
 
 		}
