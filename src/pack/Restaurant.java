@@ -14,6 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class Restaurant {
 
@@ -33,6 +36,7 @@ public class Restaurant {
 	String adresse;
 	
 	@OneToMany(mappedBy="resto", fetch=FetchType.EAGER)
+	
 	List<Plat> plats;
 	
 	

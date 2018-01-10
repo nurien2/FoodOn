@@ -38,7 +38,7 @@ public class Facade {
 		proprio.addResto(resto);
 	}
 	
-	public void addPlatResto(String nom, String description, String prix, File photo, String nomResto,Proprietaire proprio) {
+	public void addPlatResto(String nom, String description, String prix, String photo, String nomResto,Proprietaire proprio) {
 		int indexOfRs = 0;
 		int idResto = -1;
 		for (Restaurant r : proprio.getRestaurants()) {
@@ -167,6 +167,24 @@ public class Facade {
 		
 		
 	}
+	
+	//ajout 06-01-2018
+		public Plat get_Plat_par_Id(int idPlat){
+			Plat  p=em.find(Plat.class, idPlat);
+			return p;
+		}
+		//ajout 06-01-2018
+		public Restaurant get_Resto_Par_Id(int idResto){
+			Restaurant  r=em.find(Restaurant.class, idResto);
+			return r;
+		}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

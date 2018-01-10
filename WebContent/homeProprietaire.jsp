@@ -222,7 +222,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="post" action="Serv" id="myForm1">
+          <form method="post" action="Serv" id="myForm1" enctype="multipart/form-data">
             <div class="form-group">
               <label for="title" class="form-control-label">Nom</label>
               <input type="text" name="nom" class="form-control">

@@ -10,16 +10,22 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  * Servlet implementation class Serv
  */
+/*l'ajout de multipart config c'est pour l'ajout des images*/
 @WebServlet("/Serv")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+maxFileSize = 1024 * 1024 * 10, // 10MB
+maxRequestSize = 1024 * 1024 * 50)
 public class Serv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -126,6 +132,34 @@ public class Serv extends HttpServlet {
 				request.setAttribute("prenom", clientAP.getPrenom());
 				request.getRequestDispatcher("restaurantClient.jsp").forward(request, response);
 				break;
+				
+				//ajout le 06-01-2018
+			case "Resto_avec_commentaire" :
+				System.out.println("Servlet attaque Resto_avec_commentaire");
+			
+				int idResto = Integer.parseInt(request.getParameter("idResto"));
+				Restaurant resto =f.get_Resto_Par_Id(idResto);
+				request.setAttribute("Resto",resto);
+				request.getRequestDispatcher("CommentaireResto.jsp").forward(request, response);
+				break;
+				
+				
+				//ajout le 06-01-2018
+			case "Plat_avec_commentaire" :
+				System.out.println("Servlet attaque Plat_avec_commentaire");
+			
+				int idPlat = Integer.parseInt(request.getParameter("idPlat"));
+				Plat plat =f.get_Plat_par_Id(idPlat);
+				request.setAttribute("Plat",plat);
+				System.out.println("pass");
+				request.getRequestDispatcher("CommentairesPlat.jsp").forward(request, response);
+				System.out.println("pass2");
+				break;
+				
+				
+				
+				
+				
 		}
 	}
 
@@ -207,15 +241,33 @@ public class Serv extends HttpServlet {
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
 			
-			case "ajouterPlatRestaurant" :
+case "ajouterPlatRestaurant" :
+				
+				
+				
+				
+				
+				//début  partie  qui concerne l'ajout de l'image 
+				Part part = request.getPart("photo");
+		        String fileName = extractFileName(part);
+		        String savePaths = "D:\\j2eetestt\\FoodOn\\WebContent\\images\\" + File.separator + fileName;
+		        System.out.println(savePaths);
+		        part.write(savePaths + File.separator);
+		        System.out.println("photo du plat inserted !!!");
+				
+				//fin partie concernat l'image
+		
+				
 				System.out.println("Servlet attaque ajoutPlatResto !!!");
 				String nomPlat = request.getParameter("nom");
 				String descriptionPlat = request.getParameter("description");
 				String prixPlat = request.getParameter("prix");
 				String restoAssocie = request.getParameter("restaurant");
-				File photoPlat = (File) request.getAttribute("photo");
+				
+				//String photoPlat = (String) request.getAttribute("photo");
+				
 				Proprietaire userr = (Proprietaire) session.getAttribute("utilisateur");
-				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,photoPlat,restoAssocie,userr);
+				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,fileName,restoAssocie,userr);
 				int nbRestau = f.getNbRestos((Proprietaire) userr);
         		request.setAttribute("nbRestaux",Integer.toString(nbRestau));
 				request.setAttribute("prenom", userr.getPrenom());
@@ -223,6 +275,38 @@ public class Serv extends HttpServlet {
         		request.setAttribute("nbPlats",Integer.toString(nbPlatss));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
+				//ajout le 06-01-2018
+			case "commenterPlat" :
+				System.out.println("Servlet attaque commenter Plat !!!");
+				int idPlat = (int) Integer.parseInt(request.getParameter("idplat"));
+				String texte = (String) request.getParameter("text");
+				System.out.println("le commentaire:"+texte);
+				Client client = (Client) session.getAttribute("utilisateur");
+				CommentairePlat commentairePlat  =new CommentairePlat();
+				commentairePlat.setTexte(texte);
+				f.commenterPlat(client.getId(), idPlat, commentairePlat);
+				System.out.println("Le client de Id = "+client.getId()+"a commenter  un plat !!! ");
+				
+				Plat plat =f.get_Plat_par_Id(idPlat);
+        		request.setAttribute("Plat",plat);
+				request.getRequestDispatcher("CommentairesPlat.jsp").forward(request, response);
+				break;
+				//ajout le 06-01-2018
+			case "commenterResto" :
+				System.out.println("Servlet attaque commenter Resto !!!");
+				int idResto = (int) Integer.parseInt(request.getParameter("idResto"));
+				String text = (String) request.getAttribute("text");
+				Client clien = (Client) session.getAttribute("utilisateur");
+				CommentaireResto commentaireResto  =new CommentaireResto();
+				commentaireResto.setTexte(text);
+				f.commenterResto(clien.getId(), idResto, commentaireResto);
+				System.out.println("Le client de Id = "+clien.getId()+"a commenter  un plat !!! ");
+				
+				Restaurant resto =f.get_Resto_Par_Id(idResto);
+        		request.setAttribute("Resto",resto);
+				request.getRequestDispatcher("CommentaireResto.jsp").forward(request, response);
+				break;
+				
 				
 
 			
@@ -231,5 +315,19 @@ public class Serv extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
         
 	}
+	
+	
+	//fonction pour l'ajout des images 
+	  private String extractFileName(Part part) {
+	        String contentDisp = part.getHeader("content-disposition");
+	        String[] items = contentDisp.split(";");
+	        for (String s : items) {
+	            if (s.trim().startsWith("filename")) {
+	                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+	            }
+	        }
+	        return "";
+	    }
+	
 
 }

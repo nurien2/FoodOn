@@ -111,7 +111,17 @@
 	                    		<input type="hidden" name="plat" value= "<%= plat.getId()%>">
 	                     		<a class="btn btn-success btn-block" onclick='$("#getPlat<%=i%>").submit();'>Ajouter au panier : <span><%= plat.getPrix() %>> €</span></a>
 	                     </form>
-	                     <a href="plat.html" class="btn btn-success btn-block">Détails</a>	                    
+	                     
+	                      <form role="form" method="get" action="Serv" id="getComm<%=i%>">
+	                    	  
+	                    		<input type="hidden" name="operation" value="Plat_avec_commentaire">
+	                    		<input type="hidden" name="idPlat" value= "<%= plat.getId()%>">
+	                     </form>
+	                     
+	                     
+	                     
+	                     
+	                     <a  class="btn btn-success btn-block" onclick='$("#getComm<%=i%>").submit();'>D�tails</a>	                    
 	                </div>
 	            </div>
 	          </div>

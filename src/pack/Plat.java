@@ -18,7 +18,7 @@ public class Plat {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
-	File photo;
+	String photo;
 	String nom;
 	String description;
 	String prix;
@@ -37,10 +37,10 @@ public class Plat {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public File getPhoto() {
+	public String getPhoto() {
 		return photo;
 	}
-	public void setPhoto(File photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 	public String getNom() {
@@ -70,7 +70,7 @@ public class Plat {
 		this.resto = resto;
 	}
 	
-	public Plat(File photo, String nom, String description, String prix) {
+	public Plat(String photo, String nom, String description, String prix) {
 		super();
 		this.photo = photo;
 		this.nom = nom;

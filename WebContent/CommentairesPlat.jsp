@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@page import="pack.Plat"%>
+<%@page import="pack.Client"%>
 <%@page import="pack.CommentairePlat"%>
 <%@page import="java.util.List"%>
 <html lang="en">
@@ -47,9 +49,11 @@
               </a>
             </div>
           </li>
-
+<% Client client = (Client) session.getAttribute("utilisateur");
+String nomClient =client.getPrenom();
+%>
           <li class="nav-item dropdown mr-3">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Bienvenue Youssef</a>
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Bienvenue <%= nomClient %></a>
             <div class="dropdown-menu">
               <a href="profil.html" class="dropdown-item">
                 <i class="fa fa-user-circle"></i>  Profil
@@ -75,6 +79,8 @@
   </header>
 
 <%
+
+         Plat plat =(Plat)request.getAttribute("Plat");
 		  String nom = (String) request.getAttribute("nom");
           String des = (String) request.getAttribute("description");
           String prix = (String) request.getAttribute("prix");
@@ -85,7 +91,7 @@
 		  %>	
 		  <br>
 <div class="container" align="center">
-  <img  right" class="img-fluid p-3" src="http://lorempixel.com/300/300/sports/" alt="Card image cap">
+  <img  right" class="img-fluid p-3" src="images/<%=plat.getPhoto()%>" alt="Card image cap">
   <div>
 <!--       <h4>Nom Plat</h4> -->
 <!--       <h6>Nom restaurant</h6> -->
@@ -94,34 +100,24 @@
 </div>
 
 <div  class="container text-center">
-  <h3>Nom Plat</h3>
+  <h3>Nom Plat :<%= plat.getNom() %></h3>
   
-  <p><em>this plat is very very gooddzdazdazdadadazddfam zad zadaz dazd z</em></p>
+  <p  ><em> <%= plat.getDescription() %></em></p>
  
-  <p>Prix</p>
+  <p>Prix:<%= plat.getPrix() %> $</p>
 </div>
 
 <div align="center">
-<input   class="w3-circle w3-green w3-xlarge" type="button" value="+">
+<input  data-toggle="modal" data-target="#ajouterRestaurant" class="w3-circle w3-green w3-xlarge" type="button" value="+">
 </div>
 <br><br>
-<div class="container" style="background-color: Beige">
-<div class="media">
-  <div class="media-left">
-    <img src="http://lorempixel.com/400/200/people/" class="media-object" style="width:70px;height: 70px;">
-  </div>
-  <div class="media-body">
-    <h4 class="media-heading">John Doe</h4>
-    <p>Lorem ipsum...</p>
-  </div>
-</div>
-</div>
+
 
 <br><br>
-<div class="container" style="background-color: Beige">
+<div class="container" style="background-color: Lavender">
 <div class="media" >
   <div class="media-left">
-    <img src="http://lorempixel.com/400/200/people/" class="media-object" style="width:70px;height: 70px;">
+    <img src="http://localhost:8080/FoodOn/WebContent/img/avatar.png" class="media-object" style="width:70px;height: 70px;">
   </div>
   <div class="media-body">
     <h4 class="media-heading">John Doe<small><i>   Posted on February 19, 2016</i></small></h4>
@@ -129,8 +125,88 @@
   </div>
 </div>
 </div>
+<br><br>
+
+<section id="restaurants">
+    <div class="container">
+      <div class="row center">
+      
+      
+      		<%
+      			List<CommentairePlat> commentairesPlat = plat.getCommentaires();
+      			for (CommentairePlat commentaire : commentairesPlat) {
+      		%>
+      		<br><br>
+	       <div class="container" >
+  <div class="media" style="background-color: Lavender">
+    <div class="media-left">
+    <img src="http://lorempixel.com/400/200/people/" class="media-object" style="width:70px;height: 70px;">
+     </div>
+    <div class="media-body">
+    <h4 class="media-heading">  <%= commentaire.getClient().getNom() %>    <small ><i> Posted on   <i style="color:Beige ;"> </i>                            <%= commentaire.getDate_commentaire() %>    </i></small></h4>
+    <p><%= commentaire.getTexte() %></p>
+    </div>
+    </div>
+    <br><br>
+    </div>
+	        <br><br>
+	        <%
+      			}
+      		%>
+      		
+      </div>
+       <br><br>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
+ <!-- ADD POST MODAL -->
+  <div class="modal fade" id="ajouterRestaurant">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="ajouterRestaurantLabel">Commenter Le Plat</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="Serv?operation=commenterPlat&idplat=<%= plat.getId() %>" id="myForm">
+            <div class="form-group">
+              <label for="nom" class="form-control-label">commentaire</label>
+              <input style ="height: 100px;" type="text" name="text" class="form-control">
+            </div>
+           
+            
+            
+           <!--  <input type="hidden" name="operation" value="ajouterRestaurant"> --> 
+          </form>
+        </div>
+        
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" class="btn btn-primary" data-dismiss="modal" onclick='$("#myForm").submit();'>Commenter</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -158,5 +234,6 @@
   <script>
     CKEDITOR.replace('editor1');
   </script>
+  <script type="text/javascript" script-name="allura" src="http://use.edgefonts.net/allura.js"></script>
 </body>
 </html>
