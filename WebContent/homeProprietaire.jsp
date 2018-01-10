@@ -20,7 +20,7 @@
       <button class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a href="homeProprietaire.html" class="navbar-brand mr-5">FoodOn</a>
+      <a href="Serv?Operation=homeProprio" class="navbar-brand mr-5">FoodOn</a>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item px-2">
@@ -40,10 +40,10 @@
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a>
             <div class="dropdown-menu">
               <a href="Serv?operation=profil" class="dropdown-item">
-                <i class="fa fa-user-circle"></i>  Profil
+                <i class="fa fa-user-circle"></i>  notif
               </a>
-              <a href="connexion.html" class="dropdown-item">
-                <i class="fa fa-user-times"></i> Déconnexion
+              <a href="Serv?operation=deconnexion" class="dropdown-item">
+                <i class="fa fa-user-times"></i> notif
               </a>
             </div>
           </li>
@@ -57,7 +57,7 @@
           <li class="nav-item dropdown mr-3">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Bienvenue <%= prenom %></a>
             <div class="dropdown-menu">
-              <a href="profil.html" class="dropdown-item">
+              <a href="Serv?operation=profil" class="dropdown-item">
                 <i class="fa fa-user-circle"></i>  Profil
               </a>
               <a href="Serv?operation=deconnexion" class="dropdown-item">
