@@ -1,4 +1,5 @@
-<%@page import="pack.Proprietaire"%>
+<%@page import="pack.Restaurant"%>
+<%@page import="pack.Proprietaire, pack.Commande, java.util.List, java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -50,12 +51,12 @@
 			
 			
 		  <%
-		  	String prenom = (String) request.getAttribute("prenom");
+		  	Proprietaire proprio = (Proprietaire) request.getAttribute("proprio");
 		  	int nbRestaux = Integer.parseInt((String) request.getAttribute("nbRestaux"));
-		  	int nbPlats = Integer.parseInt((String) request.getAttribute("nbPlats")); 
+		  	int nbPlats = Integer.parseInt((String) request.getAttribute("nbPlats"));
 		  %>	
           <li class="nav-item dropdown mr-3">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Bienvenue <%= prenom %></a>
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Bienvenue <%=proprio.getPrenom() %></a>
             <div class="dropdown-menu">
               <a href="Serv?operation=profil" class="dropdown-item">
                 <i class="fa fa-user-circle"></i>  Profil
@@ -107,19 +108,29 @@
                   <tr>
                     <th>#</th>
                     <th>Restaurant</th>
-                    <th>Plat</th>
+                    <th>Pseudo client</th>
                     <th>Date</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>Macdo</td>
-                    <td>sandwich</td>
-                    <td>18:00</td>
+                  
+                  <%
+      			List<Commande> lcommandes = (List<Commande>) request.getAttribute("listeCommandes");
+          		
+                  int i = 0;
+      			for (Commande com : lcommandes) {
+      				i++; 				
+      			
+      			  %>
+      			  	<tr>
+                    <td scope="row"><%= com.getId() %> %></td>
+                    <td><%= com.getRestaurant().getNom() %></td>
+                    <td><%= com.getClient().getPseudo() %> </td>
+                    <td><%= com.getDateCommande() %></td>
                     <td><a href="details.html" class="btn btn-secondary"><i class="fa fa-angle-double-right"></i> Détails</a></td>
-                  </tr>
+                  	</tr>
+                  <% } %>
                 </tbody>
               </table>
             </div>
@@ -140,7 +151,7 @@
           <div class="card text-center card-success text-white mb-3">
             <div class="card-block">
               <h3>Plats</h3>
-              <h1 class="display-4"><i class="fa fa-spoon"></i> <%= nbPlats %></h1>
+              <h1 class="display-4"><i class="fa fa-spoon"></i> <%=nbPlats %></h1>
               <form role="form" method="get" action="Serv" id="getPlats">
               	<input type="hidden" name="operation" value="plats">
               </form>
@@ -233,7 +244,16 @@
             </div>
             <div class="form-group">
               <label for="restaurant" class="form-control-label">Restaurant</label>
-              <input type="text" name="restaurant" class="form-control">
+              <select class="form-control" name="restaurant">
+              <%
+              	List<Restaurant> restos = (List<Restaurant>) request.getAttribute("restos");
+              	for (Restaurant resto : restos) {
+              %>
+              <option value="<%=resto.getId() %>"><%=resto.getNom()%></option>
+              <%
+              	}
+              %>
+              </select>
             </div>
             <div class="form-group bg-faded p-3">
               <label for="file">Image</label>

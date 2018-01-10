@@ -38,24 +38,19 @@ public class Facade {
 		proprio.addResto(resto);
 	}
 	
-	public void addPlatResto(String nom, String description, String prix, String photo, String nomResto,Proprietaire proprio) {
-		int indexOfRs = 0;
-		int idResto = -1;
-		for (Restaurant r : proprio.getRestaurants()) {
-			if (r.getNom().equals(nomResto)) {
-				idResto = r.getId();
-				indexOfRs = proprio.getRestaurants().indexOf(r);
+	public void addPlatResto(String nom, String description, String prix, String photo, int restoId,Proprietaire proprio) {
+		Restaurant resto = em.find(Restaurant.class, restoId);
+		Plat plat = new Plat(photo,nom,description,prix);
+		em.persist(plat);
+		plat.setResto(resto);
+		int index = -1;
+		for (Restaurant restau : proprio.getRestaurants()) {
+			if (restau.getId() == resto.getId()) {
+				index = proprio.getRestaurants().indexOf(restau);
+				break;
 			}
 		}
-		if (idResto != -1) {
-			Plat plat = new Plat(photo,nom,description,prix);
-			em.persist(plat);
-			plat.setResto(em.find(Restaurant.class, idResto));
-			proprio.getRestaurants().get(indexOfRs).ajouterPlat(plat);
-		} else {
-			System.out.println("resto inconnu");
-		}
-		
+		proprio.getRestaurants().get(index).ajouterPlat(plat);
 	}
 	
 	
@@ -203,7 +198,13 @@ public class Facade {
 				return false;
 			}
 		}
-	
+		//
+		public List<Commande> getCommandeProprio(Proprietaire prop) {
+			List<Commande> listeCommande = prop.commandes;
+			return listeCommande;
+			
+		}
+	    //
 	
 	
 	

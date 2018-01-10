@@ -78,11 +78,18 @@ public class Serv extends HttpServlet {
 			case "homeProprio" :
 				System.out.println("Servlet attaque homeProprio !!!");
 				Proprietaire proprio = (Proprietaire) session.getAttribute("utilisateur");
-				request.setAttribute("prenom", proprio.getPrenom());
+				request.setAttribute("proprio", proprio);
 				int nbRestaux = f.getNbRestos(proprio);
 				int nbPlats = f.getNbPlats(proprio);
+				//
+				List<Commande> listeCommandes = f.getCommandeProprio(proprio);
+				request.setAttribute("listeCommandes", listeCommandes);
+				//
+				List<Restaurant> listeRestos = proprio.getRestaurants();
+				request.setAttribute("restos", listeRestos);
 	        	request.setAttribute("nbPlats",Integer.toString(nbPlats));
 	        	request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
+	        	
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
 				
@@ -195,10 +202,14 @@ public class Serv extends HttpServlet {
 		        if ((utilisateur = ValidationUser.verifierUser(f, email, pass)) != null) {
 		        	out.println("Bienvenue " + utilisateur.getPrenom());
 		        	session.setAttribute("utilisateur", utilisateur );
-		        	request.setAttribute("prenom", utilisateur.getPrenom());
+		        	request.setAttribute("proprio", utilisateur);
 		        	if (utilisateur instanceof Proprietaire) {
 		        		int nbRestaux = f.getNbRestos((Proprietaire) utilisateur);
 		        		int nbPlats = f.getNbPlats((Proprietaire) utilisateur);
+		        		List<Commande> listeCommandes = f.getCommandeProprio((Proprietaire) utilisateur);
+						List<Restaurant> listeRestos = ((Proprietaire) utilisateur).getRestaurants();
+						request.setAttribute("restos", listeRestos);
+		        		request.setAttribute("listeCommandes", listeCommandes);
 		        		request.setAttribute("nbPlats",Integer.toString(nbPlats));
 		        		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 		        		request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
@@ -242,7 +253,11 @@ public class Serv extends HttpServlet {
 				f.addRestaurant(user , nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
 				int nbRestaux = f.getNbRestos((Proprietaire) user);
         		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
-				request.setAttribute("prenom", user.getPrenom());
+				request.setAttribute("proprio", user);
+				List<Commande> listeCommandes = f.getCommandeProprio((Proprietaire) user);
+				request.setAttribute("listeCommandes", listeCommandes);
+				List<Restaurant> listeRestos = user.getRestaurants();
+				request.setAttribute("restos", listeRestos);
 				int nbPlats = f.getNbPlats((Proprietaire) user);
         		request.setAttribute("nbPlats",Integer.toString(nbPlats));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
@@ -255,7 +270,7 @@ public class Serv extends HttpServlet {
 				//d�but  partie  qui concerne l'ajout de l'image 
 				Part part = request.getPart("photo");
 		        String fileName = extractFileName(part);
-		        String savePaths = "D:\\j2eetestt\\FoodOn\\WebContent\\images\\" + File.separator + fileName;
+		        String savePaths = "/home/nicolas/ImagesAppliWeb/" + File.separator + fileName;
 		        System.out.println(savePaths);
 		        part.write(savePaths + File.separator);
 		        System.out.println("photo du plat inserted !!!");
@@ -267,15 +282,21 @@ public class Serv extends HttpServlet {
 				String nomPlat = request.getParameter("nom");
 				String descriptionPlat = request.getParameter("description");
 				String prixPlat = request.getParameter("prix");
-				String restoAssocie = request.getParameter("restaurant");
+				int restoAssocieId = Integer.parseInt(request.getParameter("restaurant"));
 				
 				//String photoPlat = (String) request.getAttribute("photo");
 				
 				Proprietaire userr = (Proprietaire) session.getAttribute("utilisateur");
-				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,fileName,restoAssocie,userr);
+				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,fileName,restoAssocieId,userr);
 				int nbRestau = f.getNbRestos((Proprietaire) userr);
         		request.setAttribute("nbRestaux",Integer.toString(nbRestau));
-				request.setAttribute("prenom", userr.getPrenom());
+				request.setAttribute("proprio", userr);
+				
+				List<Commande> commandes = f.getCommandeProprio(userr);
+				request.setAttribute("listeCommandes", commandes);
+				List<Restaurant> listeRestaus = userr.getRestaurants();
+				request.setAttribute("restos", listeRestaus);
+
 				int nbPlatss = f.getNbPlats((Proprietaire) userr);
         		request.setAttribute("nbPlats",Integer.toString(nbPlatss));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
