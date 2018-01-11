@@ -137,6 +137,7 @@ public class Serv extends HttpServlet {
 			case "ajoutPanier" :
 				System.out.println("Servlet attaque ajoutPanier");
 				Client clientAP = (Client) session.getAttribute("utilisateur");
+				// session.setAttribute PANIER
 				int platAPid = Integer.parseInt(request.getParameter("plat"));
 				int quantite = Integer.parseInt(request.getParameter("quantite"));
 				f.addPlatPanier(clientAP,platAPid,quantite);
@@ -250,7 +251,7 @@ public class Serv extends HttpServlet {
 				String descriptionResto = request.getParameter("editor1");
 				File photoResto = (File) request.getAttribute("photo");
 				Proprietaire user = (Proprietaire) session.getAttribute("utilisateur");
-				f.addRestaurant(user , nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
+				f.addRestaurant(user.getId() , nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
 				int nbRestaux = f.getNbRestos((Proprietaire) user);
         		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 				request.setAttribute("proprio", user);

@@ -31,16 +31,18 @@ public class Facade {
 		
 	}
 	
-	public void addRestaurant(Proprietaire proprio, String nom,String description,String specialite, File photo, String adresse) {
+	public void addRestaurant(int proprioId, String nom,String description,String specialite, File photo, String adresse) {
+		Proprietaire prop = em.find(Proprietaire.class, proprioId);
 		Restaurant resto = new Restaurant(nom, specialite, photo, description, adresse);
 		em.persist(resto);
-		resto.setProprietaire(proprio);
-		proprio.addResto(resto);
+		//resto.setProprietaire(proprio);
+		prop.getRestaurants().add(resto);
 	}
 	
 	public void addPlatResto(String nom, String description, String prix, String photo, int restoId,Proprietaire proprio) {
 		Restaurant resto = em.find(Restaurant.class, restoId);
 		Plat plat = new Plat(photo,nom,description,prix);
+		Proprietaire prop = em.find(Proprietaire.class, proprio.getId());
 		em.persist(plat);
 		plat.setResto(resto);
 		int index = -1;
