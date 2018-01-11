@@ -30,6 +30,8 @@ public class Serv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
+	private static final String PATH = "C:\\Users\\WhyRootOne\\Desktop\\app\\FoodOn\\WebContent\\images";
+	
 	@EJB
 	Facade f;
 	
@@ -58,7 +60,8 @@ public class Serv extends HttpServlet {
 
 			case "profil" :
 				System.out.println("servlet attaque profil !!!");
-				Client clientP = (Client) session.getAttribute("utilisateur");
+				int clientPID = (int) session.getAttribute("utilisateur");
+				Client clientP = f.getUserByID(clientPID);
 				request.setAttribute("clientP", clientP);
 				request.getRequestDispatcher("profil.jsp").forward(request, response);
 				break;
@@ -71,13 +74,15 @@ public class Serv extends HttpServlet {
 		
 			case "homeClient" :
 				System.out.println("servlet attaque homeClient !!!");
-				Client clientHC = (Client) session.getAttribute("utilisateur");
+				int clientHCID = (int) session.getAttribute("utilisateur");
+				Client clientHC = f.getUserByID(clientHCID);
 				request.setAttribute("listeRestaux", f.getRestaurantsProposes(clientHC));				
 				request.getRequestDispatcher("homeClient.jsp").forward(request, response);
 				break;				
 			case "homeProprio" :
 				System.out.println("Servlet attaque homeProprio !!!");
-				Proprietaire proprio = (Proprietaire) session.getAttribute("utilisateur");
+				int proprioID = (int) session.getAttribute("utilisateur");
+				Proprietaire proprio = (Proprietaire) f.getUserByID(proprioID);
 				request.setAttribute("proprio", proprio);
 				int nbRestaux = f.getNbRestos(proprio);
 				int nbPlats = f.getNbPlats(proprio);
@@ -95,7 +100,8 @@ public class Serv extends HttpServlet {
 				
 			case "restaurants" :
 				System.out.println("Servlet attaquee listerResto !!!");
-				Proprietaire user = (Proprietaire) session.getAttribute("utilisateur");
+				int userID = (int) session.getAttribute("utilisateur");
+				Proprietaire user = (Proprietaire) f.getUserByID(userID);
 				List<Restaurant> listeResto = user.getRestaurants();
 				System.out.println(listeResto);
 				if (!listeResto.isEmpty()) { 
@@ -107,7 +113,8 @@ public class Serv extends HttpServlet {
 				
 			case "plats":
 				System.out.println("Servlet attaquee listerPlats !!!");
-				Proprietaire userr = (Proprietaire) session.getAttribute("utilisateur");
+				int userrID = (int) session.getAttribute("utilisateur");
+				Proprietaire userr = (Proprietaire) f.getUserByID(userrID);
 				List<Plat> listePlats = f.listerPlats(userr);
 				if (!listePlats.isEmpty()) { 
 					request.setAttribute("listePlats", listePlats);
@@ -118,14 +125,16 @@ public class Serv extends HttpServlet {
 			
 			case "commander" : 
 				System.out.println("Servlet attaque commander");
-				Client clientC = (Client) session.getAttribute("utilisateur");
-				f.addCommander(clientC.getId());
+				int clientCID = (int) session.getAttribute("utilisateur");
+				Client clientC =  f.getUserByID(clientCID);
+				f.addCommander(clientCID);
 				request.setAttribute("listeRestaux", f.getRestaurantsProposes(clientC));
 				request.getRequestDispatcher("homeClient.jsp").forward(request, response);
 				break;
 			case "platsRestaurant" :
 				System.out.println("Servlet attaque plats dun restaurant");
-				Client client = (Client) session.getAttribute("utilisateur");
+				int clientID = (int) session.getAttribute("utilisateur");
+				Client client =  f.getUserByID(clientID);
 				int restoId = Integer.parseInt(request.getParameter("restaurant"));
 				List<Plat> listePlatsResto = f.getPlatsRestaurant(restoId);
 				request.setAttribute("prenom", client.getPrenom());
@@ -136,7 +145,8 @@ public class Serv extends HttpServlet {
 				
 			case "ajoutPanier" :
 				System.out.println("Servlet attaque ajoutPanier");
-				Client clientAP = (Client) session.getAttribute("utilisateur");
+				int clientAPID = (int) session.getAttribute("utilisateur");
+				Client clientAP =  f.getUserByID(clientAPID);
 				// session.setAttribute PANIER
 				int platAPid = Integer.parseInt(request.getParameter("plat"));
 				int quantite = Integer.parseInt(request.getParameter("quantite"));
@@ -151,7 +161,7 @@ public class Serv extends HttpServlet {
 				//ajout le 06-01-2018
 			case "Resto_avec_commentaire" :
 				System.out.println("Servlet attaque Resto_avec_commentaire");
-			
+				
 				int idResto = Integer.parseInt(request.getParameter("idResto"));
 				Restaurant resto =f.get_Resto_Par_Id(idResto);
 				request.setAttribute("Resto",resto);
@@ -166,9 +176,7 @@ public class Serv extends HttpServlet {
 				int idPlat = Integer.parseInt(request.getParameter("idPlat"));
 				Plat plat =f.get_Plat_par_Id(idPlat);
 				request.setAttribute("Plat",plat);
-				System.out.println("pass");
 				request.getRequestDispatcher("CommentairesPlat.jsp").forward(request, response);
-				System.out.println("pass2");
 				break;
 				
 				
@@ -202,7 +210,7 @@ public class Serv extends HttpServlet {
 
 		        if ((utilisateur = ValidationUser.verifierUser(f, email, pass)) != null) {
 		        	out.println("Bienvenue " + utilisateur.getPrenom());
-		        	session.setAttribute("utilisateur", utilisateur );
+		        	session.setAttribute("utilisateur", utilisateur.getId());
 		        	request.setAttribute("proprio", utilisateur);
 		        	if (utilisateur instanceof Proprietaire) {
 		        		int nbRestaux = f.getNbRestos((Proprietaire) utilisateur);
@@ -250,16 +258,17 @@ public class Serv extends HttpServlet {
 				String specialtiteResto = request.getParameter("specialite");
 				String descriptionResto = request.getParameter("editor1");
 				File photoResto = (File) request.getAttribute("photo");
-				Proprietaire user = (Proprietaire) session.getAttribute("utilisateur");
-				f.addRestaurant(user.getId() , nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
-				int nbRestaux = f.getNbRestos((Proprietaire) user);
+				int userID = (int) session.getAttribute("utilisateur");
+				f.addRestaurant(userID , nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
+				Proprietaire user = (Proprietaire) f.getUserByID(userID);
+				int nbRestaux = user.getRestaurants().size();
         		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
 				request.setAttribute("proprio", user);
-				List<Commande> listeCommandes = f.getCommandeProprio((Proprietaire) user);
+				List<Commande> listeCommandes = f.getCommandeProprio(user);
 				request.setAttribute("listeCommandes", listeCommandes);
 				List<Restaurant> listeRestos = user.getRestaurants();
 				request.setAttribute("restos", listeRestos);
-				int nbPlats = f.getNbPlats((Proprietaire) user);
+				int nbPlats = f.getNbPlats(user);
         		request.setAttribute("nbPlats",Integer.toString(nbPlats));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
@@ -271,7 +280,7 @@ public class Serv extends HttpServlet {
 				//d�but  partie  qui concerne l'ajout de l'image 
 				Part part = request.getPart("photo");
 		        String fileName = extractFileName(part);
-		        String savePaths = "/home/nicolas/ImagesAppliWeb/" + File.separator + fileName;
+		        String savePaths = PATH + File.separator + fileName;
 		        System.out.println(savePaths);
 		        part.write(savePaths + File.separator);
 		        System.out.println("photo du plat inserted !!!");
@@ -287,9 +296,10 @@ public class Serv extends HttpServlet {
 				
 				//String photoPlat = (String) request.getAttribute("photo");
 				
-				Proprietaire userr = (Proprietaire) session.getAttribute("utilisateur");
-				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,fileName,restoAssocieId,userr);
-				int nbRestau = f.getNbRestos((Proprietaire) userr);
+				int userrID = (int) session.getAttribute("utilisateur");
+				f.addPlatResto(nomPlat,descriptionPlat,prixPlat,fileName,restoAssocieId,userrID);
+				Proprietaire userr = (Proprietaire) f.getUserByID(userrID);
+				int nbRestau = userr.getRestaurants().size();
         		request.setAttribute("nbRestaux",Integer.toString(nbRestau));
 				request.setAttribute("proprio", userr);
 				
@@ -298,7 +308,7 @@ public class Serv extends HttpServlet {
 				List<Restaurant> listeRestaus = userr.getRestaurants();
 				request.setAttribute("restos", listeRestaus);
 
-				int nbPlatss = f.getNbPlats((Proprietaire) userr);
+				int nbPlatss = f.getNbPlats(userr);
         		request.setAttribute("nbPlats",Integer.toString(nbPlatss));
 				request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 				break;
@@ -308,8 +318,9 @@ public class Serv extends HttpServlet {
 				int idPlat = (int) Integer.parseInt(request.getParameter("idplat"));
 				String texte = (String) request.getParameter("text");
 				System.out.println("le commentaire:"+texte);
-				Client client = (Client) session.getAttribute("utilisateur");
-				CommentairePlat commentairePlat  =new CommentairePlat();
+				int clientID = (int) session.getAttribute("utilisateur");
+				Client client = f.getUserByID(clientID);
+				CommentairePlat commentairePlat  = new CommentairePlat();
 				commentairePlat.setTexte(texte);
 				f.commenterPlat(client.getId(), idPlat, commentairePlat);
 				System.out.println("Le client de Id = "+client.getId()+"a commenter  un plat !!! ");
@@ -323,8 +334,10 @@ public class Serv extends HttpServlet {
 				System.out.println("Servlet attaque commenter Resto !!!");
 				int idResto = (int) Integer.parseInt(request.getParameter("idResto"));
 				String text = (String) request.getAttribute("text");
-				Client clien = (Client) session.getAttribute("utilisateur");
-				CommentaireResto commentaireResto  =new CommentaireResto();
+				int clienID = (int) session.getAttribute("utilisateur");
+				Client clien = f.getUserByID(clienID);
+				
+				CommentaireResto commentaireResto  = new CommentaireResto();
 				commentaireResto.setTexte(text);
 				f.commenterResto(clien.getId(), idResto, commentaireResto);
 				System.out.println("Le client de Id = "+clien.getId()+"a commenter  un plat !!! ");
@@ -337,7 +350,8 @@ public class Serv extends HttpServlet {
 				
 			case "validerModifs" :
 				System.out.println("servlet attaque modif !!!");
-				Client clientVM = (Client) session.getAttribute("utilisateur");
+				int clientVMID = (int) session.getAttribute("utilisateur");
+				Client clientVM = f.getUserByID(clientVMID);
 				String nomVM = request.getParameter("nom");
 				String prenomVM = request.getParameter("prenom");
 				String adresseVM = request.getParameter("adresse");
@@ -350,15 +364,16 @@ public class Serv extends HttpServlet {
 				
 			case "modifMDP" :
 				System.out.println("servlet attaque modifMDP !!!");
-				Client clientMDP = (Client) session.getAttribute("utilisateur");
+				int clientMDPID = (int) session.getAttribute("utilisateur");
+				Client clientMDP = f.getUserByID(clientMDPID);
 				String oldmdp = request.getParameter("oldmdp");
 				String newmdp = request.getParameter("newmdp");
 				boolean verif = f.modifierMDP(clientMDP,oldmdp,newmdp);
 				if (!verif) {
 					out.println("ancien mot de passe incorrect");
 				}
-				Client clientModifie = (Client) session.getAttribute("utilisateur");
-				request.setAttribute("clientP", clientModifie);
+				//Client clientModifie = (Client) session.getAttribute("utilisateur");
+				//request.setAttribute("clientP", clientModifie);
 				request.getRequestDispatcher("profil.jsp").forward(request, response);
 				break;
 			

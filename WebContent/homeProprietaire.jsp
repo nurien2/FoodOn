@@ -1,7 +1,7 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@page import="pack.Restaurant"%>
 <%@page import="pack.Proprietaire, pack.Commande, java.util.List, java.util.HashMap"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/style.css">
-  <title>Bienvenue à votre espace utilisateur</title>
+  <title>Bienvenue Ã  votre espace utilisateur</title>
 </head>
 <body>
 
@@ -25,7 +25,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item px-2">
-            <a href="Serv?Operation=homeProprio" class="nav-link active">Espace Propriétaire</a>
+            <a href="Serv?Operation=homeProprio" class="nav-link active">Espace PropriÃ©taire</a>
           </li>
           <li class="nav-item px-2">
             <a href="Serv?operation=restaurants" class="nav-link">Restaurants</a>
@@ -62,7 +62,7 @@
                 <i class="fa fa-user-circle"></i>  Profil
               </a>
               <a href="Serv?operation=deconnexion" class="dropdown-item">
-                <i class="fa fa-user-times"></i> Déconnexion
+                <i class="fa fa-user-times"></i> DÃ©connexion
               </a>
             </div>
           </li>
@@ -75,7 +75,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <h1><i class="fa fa-gear"></i> Espace Propriétaire</h1>
+          <h1><i class="fa fa-gear"></i> Espace PropriÃ©taire</h1>
         </div>
       </div>
     </div>
@@ -128,7 +128,7 @@
                     <td><%= com.getRestaurant().getNom() %></td>
                     <td><%= com.getClient().getPseudo() %> </td>
                     <td><%= com.getDateCommande() %></td>
-                    <td><a href="details.html" class="btn btn-secondary"><i class="fa fa-angle-double-right"></i> Détails</a></td>
+                    <td><a href="details.html" class="btn btn-secondary"><i class="fa fa-angle-double-right"></i> DÃ©tails</a></td>
                   	</tr>
                   <% } %>
                 </tbody>
@@ -196,7 +196,7 @@
               <input type="text" name="adresse" class="form-control">
             </div>
             <div class="form-group">
-              <label for="specialite" class="form-control-label">Spécialité</label>
+              <label for="specialite" class="form-control-label">SpÃ©cialitÃ©</label>
               <input type="text" name="specialite" class="form-control">
             </div>
             <div class="form-group bg-faded p-3">
