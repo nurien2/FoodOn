@@ -12,9 +12,39 @@
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/style.css">
-  <title>Bienvenue à votre espace utilisateur</title>
+  <title>Bienvenue sur votre espace utilisateur</title>
+  
+  <script>
+  	function initChatSocket(userN) {
+		socketChat = new WebSocket('ws://localhost:8080/test/chat/'+userN);	
+		console.log("--------------: " + userN);
+		login = userN;
+		socketChat.onopen = function(evt) { onOpen(evt) };
+		socketChat.onmessage = function(evt) { onMessage(evt) };
+		socketChat.onerror = function(evt) { onError(evt) };
+	}
+  	
+  	function closeChatSocket() {
+  		if (socketChat !== null) {
+  			socketChat.close();
+  			socketChat = null;
+  		}
+  	}
+  	
+  	function onMessage(evt) {
+  		//alert(document.getElementById("afficheur").innerHTML);
+  		
+  		document.getElementById("MSG").innerHTML= "<h1>"evt.data.slice(10)+"</h1>"
+  		
+  	}
+  	
+  </script>
+  
 </head>
-<body>
+<%
+	Proprietaire prop = (Proprietaire) request.getAttribute("proprio");
+%>
+<body onload="initChatSocket('<%= prop.getId()%>')" onbeforeunload="closeChatSocket()">
 
 	<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse p-0">
     <div class="container">
@@ -101,6 +131,7 @@
         <div class="col-md-9">
           <div class="card">
             <div class="card-header">
+            	<div id="MSG"></div>
                 <h4>Commandes en cours</h4>
               </div>
               <table class="table table-striped">

@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -76,6 +79,7 @@ public class Serv extends HttpServlet {
 				System.out.println("servlet attaque homeClient !!!");
 				int clientHCID = (int) session.getAttribute("utilisateur");
 				Client clientHC = f.getUserByID(clientHCID);
+				request.setAttribute("client", clientHC);
 				request.setAttribute("listeRestaux", f.getRestaurantsProposes(clientHC));				
 				request.getRequestDispatcher("homeClient.jsp").forward(request, response);
 				break;				
@@ -86,6 +90,18 @@ public class Serv extends HttpServlet {
 				request.setAttribute("proprio", proprio);
 				int nbRestaux = f.getNbRestos(proprio);
 				int nbPlats = f.getNbPlats(proprio);
+				
+				if(getServletContext().getAttribute("lesConnectes")==null){
+					getServletContext().setAttribute("lesConnectes", Collections.synchronizedMap(new HashMap<String,HttpSession>()));
+				}
+				
+				Map<String,HttpSession> lesConnectes=(Map<String,HttpSession>) getServletContext().getAttribute("lesConnectes");			
+				if(lesConnectes.get(request.getParameter(Integer.toString(proprioID)))==null){
+					lesConnectes.put(Integer.toString(proprioID), session);
+				}	
+				
+				
+				
 				//
 				List<Commande> listeCommandes = f.getCommandeProprio(proprio);
 				request.setAttribute("listeCommandes", listeCommandes);

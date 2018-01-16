@@ -13,9 +13,40 @@
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/style.css">
   <title>Bienvenue à votre espace utilisateur</title>
+  
+  
+   <script>
+    var socketChat = null;
+    var login = null;
+  	
+    
+    function initChatSocket(userN) {
+		socketChat = new WebSocket('ws://localhost:8080/test/chat/'+userN);	
+		console.log("--------------: " + userN);
+		login = userN;
+		socketChat.onopen = function(evt) { onOpen(evt) };
+		socketChat.onmessage = function(evt) { onMessage(evt) };
+		socketChat.onerror = function(evt) { onError(evt) };
+	}
+  	
+  	function closeChatSocket() {
+  		if (socketChat !== null) {
+  			socketChat.close();
+  			socketChat = null;
+  		}
+  	}
+  	
+  	function sendMessage() {
+  		socketChat.send(document.getElementById("toSend").value);
+  	}
+  	
+  </script>
+  
 </head>
-<body>
-
+<%
+	Client client = (Client) request.getAttribute("client");
+%>
+<body onload="initChatSocket('<%= client.getId()%>')" onbeforeunload="closeChatSocket()">
 	<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse p-0">
     <div class="container">
       <button class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarNav">
@@ -45,7 +76,6 @@
 			
 			
 		  <%
-		  
 		  	String prenom = (String) request.getAttribute("prenom");
 		  %>	
           <li class="nav-item dropdown mr-3">
@@ -85,6 +115,9 @@
     </div>
   </section>
   
+  
+  <input id="toSend" type="text" name="operation" value="SALUT">
+  <a class="btn btn-success btn-block" onclick='sendMessage()'>Détails</a>
   
     <!-- POSTS -->
   <section id="posts">
