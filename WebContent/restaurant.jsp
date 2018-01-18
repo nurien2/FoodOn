@@ -37,17 +37,17 @@
 
         <ul class="navbar-nav ml-auto">
 
-          <li class="nav-item dropdown mr-3">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a>
-            <div class="dropdown-menu">
-              <a href="Serv?operation=profil" class="dropdown-item">
-                <i class="fa fa-user-circle"></i>  Profil
-              </a>
-              <a href="connexion.html" class="dropdown-item">
-                <i class="fa fa-user-times"></i> Déconnexion
-              </a>
-            </div>
-          </li>
+<!--           <li class="nav-item dropdown mr-3"> -->
+<!--             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important"></span></a> -->
+<!--             <div class="dropdown-menu"> -->
+<!--               <a href="Serv?operation=profil" class="dropdown-item"> -->
+<!--                 <i class="fa fa-user-circle"></i>  Profil -->
+<!--               </a> -->
+<!--               <a href="connexion.html" class="dropdown-item"> -->
+<!--                 <i class="fa fa-user-times"></i> Déconnexion -->
+<!--               </a> -->
+<!--             </div> -->
+<!--           </li> -->
 			
 			
 		  <%
@@ -57,7 +57,7 @@
           <li class="nav-item dropdown mr-3">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Bienvenue <%= prenom %></a>
             <div class="dropdown-menu">
-              <a href="profil.html" class="dropdown-item">
+              <a href="Serv?operation=profil" class="dropdown-item">
                 <i class="fa fa-user-circle"></i>  Profil
               </a>
               <a href="Serv?operation=deconnexion" class="dropdown-item">

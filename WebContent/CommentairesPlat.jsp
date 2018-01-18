@@ -38,24 +38,24 @@
 
         <ul class="navbar-nav ml-auto">
 
-          <li class="nav-item dropdown mr-3">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a>
-            <div class="dropdown-menu">
-              <a href="Serv?operation=profil" class="dropdown-item">
-                <i class="fa fa-user-circle"></i>  Profil
-              </a>
-              <a href="connexion.html" class="dropdown-item">
-                <i class="fa fa-user-times"></i> Déconnexion
-              </a>
-            </div>
-          </li>
-<% Client client = (Client) session.getAttribute("utilisateur");
-String nomClient =client.getPrenom();
-%>
+<!--           <li class="nav-item dropdown mr-3"> -->
+<!--             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a> -->
+<!--             <div class="dropdown-menu"> -->
+<!--               <a href="Serv?operation=profil" class="dropdown-item"> -->
+<!--                 <i class="fa fa-user-circle"></i>  Profil -->
+<!--               </a> -->
+<!--               <a href="connexion.html" class="dropdown-item"> -->
+<!--                 <i class="fa fa-user-times"></i> Déconnexion -->
+<!--               </a> -->
+<!--             </div> -->
+<!--           </li> -->
+  <% Client client = (Client) request.getAttribute("utilisateur");
+	String nomClient =client.getPrenom();
+   %>
           <li class="nav-item dropdown mr-3">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Bienvenue <%= nomClient %></a>
             <div class="dropdown-menu">
-              <a href="profil.html" class="dropdown-item">
+              <a href="Serv?operation=profil" class="dropdown-item">
                 <i class="fa fa-user-circle"></i>  Profil
               </a>
               <a href="Serv?operation=deconnexion" class="dropdown-item">
@@ -81,17 +81,17 @@ String nomClient =client.getPrenom();
 <%
 
          Plat plat =(Plat)request.getAttribute("Plat");
-		  String nom = (String) request.getAttribute("nom");
-          String des = (String) request.getAttribute("description");
-          String prix = (String) request.getAttribute("prix");
-          List<CommentairePlat>  commentaires =(List<CommentairePlat>)request.getAttribute("commentaires");
+// 		  String nom = (String) request.getAttribute("nom");
+//           String des = (String) request.getAttribute("description");
+//           String prix = (String) request.getAttribute("prix");
+//           List<CommentairePlat>  commentaires =(List<CommentairePlat>)request.getAttribute("commentaires");
              
 
 		  	
 		  %>	
 		  <br>
 <div class="container" align="center">
-  <img  right" class="img-fluid p-3" src="images/<%=plat.getPhoto()%>" alt="Card image cap">
+  <img  right" class="img-fluid p-3" src="<%=plat.getPhoto()%>" alt="Card image cap">
   <div>
 <!--       <h4>Nom Plat</h4> -->
 <!--       <h6>Nom restaurant</h6> -->
@@ -115,15 +115,7 @@ String nomClient =client.getPrenom();
 
 <br><br>
 <div class="container" style="background-color: Lavender">
-<div class="media" >
-  <div class="media-left">
-    <img src="http://localhost:8080/FoodOn/WebContent/img/avatar.png" class="media-object" style="width:70px;height: 70px;">
-  </div>
-  <div class="media-body">
-    <h4 class="media-heading">John Doe<small><i>   Posted on February 19, 2016</i></small></h4>
-    <p>it is very very good plate</p>
-  </div>
-</div>
+
 </div>
 <br><br>
 
@@ -140,7 +132,7 @@ String nomClient =client.getPrenom();
 	       <div class="container" >
   <div class="media" style="background-color: Lavender">
     <div class="media-left">
-    <img src="http://lorempixel.com/400/200/people/" class="media-object" style="width:70px;height: 70px;">
+    <img src="<%=commentaire.getClient().getImage()%>" class="media-object" style="width:70px;height: 70px;">
      </div>
     <div class="media-body">
     <h4 class="media-heading">  <%= commentaire.getClient().getNom() %>    <small ><i> Posted on   <i style="color:Beige ;"> </i>                            <%= commentaire.getDate_commentaire() %>    </i></small></h4>

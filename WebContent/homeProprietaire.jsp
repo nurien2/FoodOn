@@ -14,37 +14,13 @@
   <link rel="stylesheet" href="css/style.css">
   <title>Bienvenue sur votre espace utilisateur</title>
   
-  <script>
-  	function initChatSocket(userN) {
-		socketChat = new WebSocket('ws://localhost:8080/test/chat/'+userN);	
-		console.log("--------------: " + userN);
-		login = userN;
-		socketChat.onopen = function(evt) { onOpen(evt) };
-		socketChat.onmessage = function(evt) { onMessage(evt) };
-		socketChat.onerror = function(evt) { onError(evt) };
-	}
-  	
-  	function closeChatSocket() {
-  		if (socketChat !== null) {
-  			socketChat.close();
-  			socketChat = null;
-  		}
-  	}
-  	
-  	function onMessage(evt) {
-  		//alert(document.getElementById("afficheur").innerHTML);
-  		
-  		document.getElementById("MSG").innerHTML= "<h1>"evt.data.slice(10)+"</h1>"
-  		
-  	}
-  	
-  </script>
+  
   
 </head>
 <%
 	Proprietaire prop = (Proprietaire) request.getAttribute("proprio");
 %>
-<body onload="initChatSocket('<%= prop.getId()%>')" onbeforeunload="closeChatSocket()">
+<body>
 
 	<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse p-0">
     <div class="container">
@@ -67,17 +43,17 @@
 
         <ul class="navbar-nav ml-auto">
 
-          <li class="nav-item dropdown mr-3">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a>
-            <div class="dropdown-menu">
-              <a href="Serv?operation=profil" class="dropdown-item">
-                <i class="fa fa-user-circle"></i>  notif
-              </a>
-              <a href="Serv?operation=deconnexion" class="dropdown-item">
-                <i class="fa fa-user-times"></i> notif
-              </a>
-            </div>
-          </li>
+<!--           <li class="nav-item dropdown mr-3"> -->
+<!--             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a> -->
+<!--             <div class="dropdown-menu"> -->
+<!--               <a href="Serv?operation=profil" class="dropdown-item"> -->
+<!--                 <i class="fa fa-user-circle"></i>  notif -->
+<!--               </a> -->
+<!--               <a href="Serv?operation=deconnexion" class="dropdown-item"> -->
+<!--                 <i class="fa fa-user-times"></i> notif -->
+<!--               </a> -->
+<!--             </div> -->
+<!--           </li> -->
 			
 			
 		  <%
@@ -217,7 +193,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="post" action="Serv" id="myForm">
+          <form method="post" action="Serv" id="myForm" enctype="multipart/form-data">
             <div class="form-group">
               <label for="nom" class="form-control-label">Nom</label>
               <input type="text" name="nom" class="form-control">
@@ -239,7 +215,7 @@
             </div>
             <div class="form-group">
               <label for="body">Description</label>
-              <textarea name="editor1" class="form-control"></textarea>
+              <textarea name="description" class="form-control"></textarea>
             </div>
             <input type="hidden" name="operation" value="ajouterRestaurant">
           </form>
@@ -295,7 +271,7 @@
             </div>
             <div class="form-group">
               <label for="body">Description</label>
-              <textarea name="editor1" class="form-control"></textarea>
+              <textarea name="description" class="form-control"></textarea>
             </div>
             <input type="hidden" name="operation" value="ajouterPlatRestaurant">
           </form>

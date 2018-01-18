@@ -36,17 +36,17 @@
         
         <ul class="navbar-nav ml-auto">
 
-          <li class="nav-item dropdown mr-3">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a>
-            <div class="dropdown-menu">
-              <a href="Serv?operation=profil" class="dropdown-item">
-                <i class="fa fa-user-circle"></i>  Profil
-              </a>
-              <a href="connexion.html" class="dropdown-item">
-                <i class="fa fa-user-times"></i> Déconnexion
-              </a>
-            </div>
-          </li>
+<!--           <li class="nav-item dropdown mr-3"> -->
+<!--             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a> -->
+<!--             <div class="dropdown-menu"> -->
+<!--               <a href="Serv?operation=profil" class="dropdown-item"> -->
+<!--                 <i class="fa fa-user-circle"></i>  Profil -->
+<!--               </a> -->
+<!--               <a href="connexion.html" class="dropdown-item"> -->
+<!--                 <i class="fa fa-user-times"></i> Déconnexion -->
+<!--               </a> -->
+<!--             </div> -->
+<!--           </li> -->
 			
 			
 		  <% 
@@ -55,7 +55,7 @@
           <li class="nav-item dropdown mr-3">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Bienvenue <%= prenom %></a>
             <div class="dropdown-menu">
-              <a href="profil.html" class="dropdown-item">
+              <a href="Serv?operation=profil" class="dropdown-item">
                 <i class="fa fa-user-circle"></i>  Profil
               </a>
               <a href="Serv?operation=deconnexion" class="dropdown-item">
@@ -104,7 +104,7 @@
       		%>
       				<div class="col-md-3 m-4">
 	      	          <div class="card" style="width:20rem">
-	      	              <img class="card-img-top" src="http://lorempixel.com/300/300/sports/" alt="Card image cap">
+	      	              <img style="height:320px; width:20rem;" class="card-img-top" src="<%= resto.getPhoto()%>" alt="Card image cap">
 	      	              <div class="card-block">
 	      	                  <h4 class="card-title"><%= resto.getNom() %></h4>
 	      	                  <p class="card-text"><%= resto.getDescription() %> </p>

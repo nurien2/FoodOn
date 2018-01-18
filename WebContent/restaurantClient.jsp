@@ -13,6 +13,27 @@
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/style.css">
   <title>Bienvenue à votre espace utilisateur</title>
+  
+  <script type="text/javascript">
+  
+  function enregistrerPlat(){
+	  $post(
+		'Serv',
+		{
+			idPlat:formAjouterPlat["idPlat"],
+			qte:formAjouterPlat["qte"]
+		},
+		function(data,status){
+			
+		}	  	  
+	  );
+		  
+	  return false;	  
+  }
+  
+  </script>
+  
+  
 </head>
 <body>
 
@@ -31,17 +52,17 @@
 
         <ul class="navbar-nav ml-auto">
 
-          <li class="nav-item dropdown mr-3">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a>
-            <div class="dropdown-menu">
-              <a href="Serv?operation=profil" class="dropdown-item">
-                <i class="fa fa-user-circle"></i>  Profil
-              </a>
-              <a href="connexion.html" class="dropdown-item">
-                <i class="fa fa-user-times"></i> Déconnexion
-              </a>
-            </div>
-          </li>
+<!--           <li class="nav-item dropdown mr-3"> -->
+<!--             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a> -->
+<!--             <div class="dropdown-menu"> -->
+<!--               <a href="Serv?operation=profil" class="dropdown-item"> -->
+<!--                 <i class="fa fa-user-circle"></i>  Profil -->
+<!--               </a> -->
+<!--               <a href="connexion.html" class="dropdown-item"> -->
+<!--                 <i class="fa fa-user-times"></i> Déconnexion -->
+<!--               </a> -->
+<!--             </div> -->
+<!--           </li> -->
 			
 			
 		  <%
@@ -51,7 +72,7 @@
           <li class="nav-item dropdown mr-3">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Bienvenue <%= prenom %></a>
             <div class="dropdown-menu">
-              <a href="profil.html" class="dropdown-item">
+              <a href="Serv?operation=profil" class="dropdown-item">
                 <i class="fa fa-user-circle"></i>  Profil
               </a>
               <a href="Serv?operation=deconnexion" class="dropdown-item">
@@ -100,15 +121,16 @@
         
 	          <div class="col-md-3 m-4">
 	            <div class="card" style="width:20rem">
-	                <img class="card-img-top" src="http://lorempixel.com/300/300/sports/" alt="Card image cap">
+	                <img style="height:320px; width:20rem;" class="card-img-top" src="<%= plat.getPhoto() %>" alt="Card image cap">
 	                <div class="card-block">
 	                    <h4 class="card-title"><%= plat.getNom()%></h4>
 	                    <h6>..</h6>
 	                    <p class="card-text">..</p>
-	                    <form role="form" method="get" action="Serv" id="getPlat<%=i%>">
+	                    <form role="form" method="get" name="formAjouterPlat<%= plat.getId()%>" action="Serv" onsubmit="return enregistrerPlat(this)">
 	                    	  	<input type="text" name="quantite" id="quantite" placeholder="quantite">
 	                    		<input type="hidden" name="operation" value="ajoutPanier">
 	                    		<input type="hidden" name="plat" value= "<%= plat.getId()%>">
+	                    		<input type="submit" value="Ajouter">
 	                     		<a class="btn btn-success btn-block" onclick='$("#getPlat<%=i%>").submit();'>Ajouter au panier : <span><%= plat.getPrix() %>> €</span></a>
 	                     </form>
 	                     

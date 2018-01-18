@@ -137,10 +137,9 @@
         </div>
         <div class="col-md-3">
           <h3>Ton Avatar</h3>
-          <img  src="images/<%=client.getImage() %>" alt="" class="d-block img-fluid mb-3">
+           <img style="height:300px; width:807px;" src="<%=client.getImage() %>" alt="" class="d-block img-fluid mb-3">
           <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal1">modifier l'Image</button>
           <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal2">supprimer l'Image</button>
-        
         </div>
       </div>
     </div>
@@ -187,13 +186,10 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
-<div class="modal fade" id="myModal1" role="dialog">
+  
+  
+  
+  <div class="modal fade" id="myModal1" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -253,36 +249,8 @@
           <button type="submit" class="btn btn-warning" data-dismiss="modal" onclick='$("#myForm12").submit();'>Supprimer l'image </button>
         </div>
       </div>
-      
-    </div>
+         </div>
   </div>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   <script src="js/jquery.min.js"></script>
