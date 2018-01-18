@@ -33,8 +33,8 @@ public class Serv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
-	private static final String PATH = "C:\\Users\\WhyRootOne\\Desktop\\app\\FoodOn\\WebContent\\images";
-	
+	//private static final String PATH = "C:\\Users\\WhyRootOne\\Desktop\\app\\FoodOn\\WebContent\\images";
+	 private static final String PATH   = "D:\\FoodOnV8\\FoodOn\\WebContent\\images\\" ;
 	@EJB
 	Facade f;
 	
@@ -394,6 +394,55 @@ public class Serv extends HttpServlet {
 				break;
 			
 
+				
+				
+
+				//update 16-01-2018 
+			case "modifierImage":
+				
+				
+				
+				//  partie  qui concerne l'ajout de l'image de l'utilisateur 
+				Part part2 = request.getPart("photo");
+		        String fileName2= extractFileName(part2);
+		        String savePaths2 = PATH + File.separator + fileName2;
+		        System.out.println(savePaths2);
+		        part2.write(savePaths2 + File.separator);
+		        System.out.println("photo du client inserted !!!");
+				
+				//fin partie concernat l'image
+		        
+		        int clienIDD = (int) session.getAttribute("utilisateur");
+		        System.out.println("photo under Name :"+fileName2 );
+				f.modifierImageClient(fileName2 , clienIDD);
+				Client clientP = f.getUserByID(clienIDD);
+				 System.out.println("servlet va te rederiger vers profil.jsp");
+				request.setAttribute("clientP", clientP);
+				
+				request.getRequestDispatcher("profil.jsp").forward(request, response);
+				
+				
+				break;
+				
+				//fin update 16-01-2018
+				
+			case "supprimerImage":
+				System.out.println("suppression de votre image de notre base de donnéé" );
+				int clienIDDD = (int) session.getAttribute("utilisateur");
+				f.supprimerImageClient(clienIDDD);
+				Client clientPP = f.getUserByID(clienIDDD);			
+				request.setAttribute("clientP", clientPP);
+				 System.out.println("servlet va te rederiger vers profil.jsp");
+				request.getRequestDispatcher("profil.jsp").forward(request, response);
+				
+				break;
+				
+				
+				
+				
+				
+				
+				
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
         
