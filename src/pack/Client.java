@@ -21,6 +21,7 @@ public class Client {
 	String adresseMail;
 	String adresse;
 	String gouts;
+	String image;
 	//List<String> gouts;
 	@OneToOne
 	Commande commandeEnCours;
@@ -42,6 +43,7 @@ public class Client {
 		this.adresseMail = adresseMail;
 		this.adresse = adresse;
 		this.gouts = gouts;
+		this.setImage("avatar.png");
 	}
 	
 	public int getId() {
@@ -109,6 +111,14 @@ public class Client {
 	
 	public void commander() {};
 	
-	public void reserver() {};
+	public void reserver() {}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	};
 	
 }

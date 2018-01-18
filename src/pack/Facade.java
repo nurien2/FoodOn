@@ -204,6 +204,21 @@ public class Facade {
 			
 		}
 	    //
+		public void modifierImageClient(String s,int id){
+			Client cli = em.find(Client.class, id);
+			cli.setImage(s);
+			//modification de l'image du client 
+			em.merge(cli);
+			
+			
+		}
+		public void supprimerImageClient(int id){
+			Client cli = em.find(Client.class, id);
+			cli.setImage("avatar.png");
+			em.merge(cli);
+			
+		}
+	
 	
 	
 	
