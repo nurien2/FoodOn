@@ -27,7 +27,7 @@ public class Restaurant {
 	
 	String nom;
 	String specialite;
-	File photo;
+	String photo;
 	String description;
 	String adresse;
 	
@@ -42,7 +42,7 @@ public class Restaurant {
 	public Restaurant() {};
 
 	
-	public Restaurant(String nom, String specialite, File photo, String descrption, String adresse) {
+	public Restaurant(String nom, String specialite, String photo, String descrption, String adresse) {
 		super();
 		this.nom = nom;
 		this.specialite = specialite;
@@ -66,10 +66,10 @@ public class Restaurant {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public File getPhoto() {
+	public String getPhoto() {
 		return photo;
 	}
-	public void setPhoto(File photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 	public String getNom() {

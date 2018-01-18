@@ -35,7 +35,7 @@ public class Facade {
 		
 	}
 	
-	public void addRestaurant(int proprioId, String nom,String description,String specialite, File photo, String adresse) {
+	public void addRestaurant(int proprioId, String nom,String description,String specialite, String photo, String adresse) {
 		Proprietaire prop = em.find(Proprietaire.class, proprioId);
 		Restaurant resto = new Restaurant(nom, specialite, photo, description, adresse);
 		em.persist(resto);
@@ -204,22 +204,22 @@ public class Facade {
 			
 		}
 	    //
+		
 		public void modifierImageClient(String s,int id){
-			Client cli = em.find(Client.class, id);
-			cli.setImage(s);
-			//modification de l'image du client 
-			em.merge(cli);
-			
-			
-		}
+						Client cli = em.find(Client.class, id);
+						cli.setImage(s);
+						//modification de l'image du client 
+						em.merge(cli);
+						
+						
+					}
 		public void supprimerImageClient(int id){
-			Client cli = em.find(Client.class, id);
-			cli.setImage("avatar.png");
-			em.merge(cli);
-			
-		}
-	
-	
+						Client cli = em.find(Client.class, id);
+						cli.setImage("img/avatar.png");
+						em.merge(cli);
+						
+	}
+
 	
 	
 	

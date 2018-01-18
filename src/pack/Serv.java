@@ -33,8 +33,8 @@ public class Serv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
-	//private static final String PATH = "C:\\Users\\WhyRootOne\\Desktop\\app\\FoodOn\\WebContent\\images";
-	 private static final String PATH   = "D:\\FoodOnV8\\FoodOn\\WebContent\\images\\" ;
+	private static final String PATH = "home/yachench/workspace_jee/FoodOn/WebContent/images";
+	
 	@EJB
 	Facade f;
 	
@@ -91,15 +91,8 @@ public class Serv extends HttpServlet {
 				int nbRestaux = f.getNbRestos(proprio);
 				int nbPlats = f.getNbPlats(proprio);
 				
-				if(getServletContext().getAttribute("lesConnectes")==null){
-					getServletContext().setAttribute("lesConnectes", Collections.synchronizedMap(new HashMap<String,HttpSession>()));
-				}
 				
-				Map<String,HttpSession> lesConnectes=(Map<String,HttpSession>) getServletContext().getAttribute("lesConnectes");			
-				if(lesConnectes.get(request.getParameter(Integer.toString(proprioID)))==null){
-					lesConnectes.put(Integer.toString(proprioID), session);
-				}	
-				
+				System.out.println(proprioID);
 				
 				
 				//
@@ -191,7 +184,10 @@ public class Serv extends HttpServlet {
 			
 				int idPlat = Integer.parseInt(request.getParameter("idPlat"));
 				Plat plat =f.get_Plat_par_Id(idPlat);
+				int clientCIID = (int) session.getAttribute("utilisateur");
+				Client clientCs =  f.getUserByID(clientCIID);
 				request.setAttribute("Plat",plat);
+				request.setAttribute("utilisateur", clientCs);
 				request.getRequestDispatcher("CommentairesPlat.jsp").forward(request, response);
 				break;
 				
@@ -233,6 +229,18 @@ public class Serv extends HttpServlet {
 		        		int nbPlats = f.getNbPlats((Proprietaire) utilisateur);
 		        		List<Commande> listeCommandes = f.getCommandeProprio((Proprietaire) utilisateur);
 						List<Restaurant> listeRestos = ((Proprietaire) utilisateur).getRestaurants();
+						int proprioID = (int) session.getAttribute("utilisateur");
+						Proprietaire proprio = (Proprietaire) f.getUserByID(proprioID);
+						if(getServletContext().getAttribute("lesConnectes")==null){
+							getServletContext().setAttribute("lesConnectes", Collections.synchronizedMap(new HashMap<String,HttpSession>()));
+						}
+						
+						Map<String,HttpSession> lesConnectes=(Map<String,HttpSession>) getServletContext().getAttribute("lesConnectes");			
+						if(lesConnectes.get(request.getParameter(Integer.toString(proprioID)))==null){
+							lesConnectes.put(Integer.toString(proprioID), session);
+						}	
+						
+						System.out.println(lesConnectes.toString());
 						request.setAttribute("restos", listeRestos);
 		        		request.setAttribute("listeCommandes", listeCommandes);
 		        		request.setAttribute("nbPlats",Integer.toString(nbPlats));
@@ -240,6 +248,8 @@ public class Serv extends HttpServlet {
 		        		request.getRequestDispatcher("homeProprietaire.jsp").forward(request, response);
 		        	} else {
 		        		List<Restaurant> restaurantsProposes = f.getRestaurantsProposes(utilisateur);
+		        		request.setAttribute("client", utilisateur);
+		        		request.setAttribute("prenom", utilisateur.getPrenom());
 		        		request.setAttribute("listeRestaux",restaurantsProposes);
 		        		request.getRequestDispatcher("homeClient.jsp").forward(request, response);
 		        	}
@@ -272,10 +282,20 @@ public class Serv extends HttpServlet {
 				String nomResto = request.getParameter("nom");
 				String adresseResto = request.getParameter("adresse");
 				String specialtiteResto = request.getParameter("specialite");
-				String descriptionResto = request.getParameter("editor1");
-				File photoResto = (File) request.getAttribute("photo");
+				String descriptionResto = request.getParameter("description");
 				int userID = (int) session.getAttribute("utilisateur");
-				f.addRestaurant(userID , nomResto, descriptionResto, specialtiteResto, photoResto, adresseResto);
+				
+				
+				//dï¿½but  partie  qui concerne l'ajout de l'image 
+				Part partt = request.getPart("photo");
+		        String fileNamee = extractFileName(partt);
+		        //String savePaths = PATH + File.separator + fileName;
+		        String pathh = request.getServletContext().getRealPath("");
+		        String savePathss = pathh + File.separator + fileNamee;
+		        partt.write(savePathss + File.separator);
+				
+				
+				f.addRestaurant(userID , nomResto, descriptionResto, specialtiteResto, fileNamee, adresseResto);
 				Proprietaire user = (Proprietaire) f.getUserByID(userID);
 				int nbRestaux = user.getRestaurants().size();
         		request.setAttribute("nbRestaux",Integer.toString(nbRestaux));
@@ -296,7 +316,9 @@ public class Serv extends HttpServlet {
 				//dï¿½but  partie  qui concerne l'ajout de l'image 
 				Part part = request.getPart("photo");
 		        String fileName = extractFileName(part);
-		        String savePaths = PATH + File.separator + fileName;
+		        //String savePaths = PATH + File.separator + fileName;
+		        String path = request.getServletContext().getRealPath("");
+		        String savePaths = path + File.separator + fileName;
 		        System.out.println(savePaths);
 		        part.write(savePaths + File.separator);
 		        System.out.println("photo du plat inserted !!!");
@@ -342,6 +364,7 @@ public class Serv extends HttpServlet {
 				System.out.println("Le client de Id = "+client.getId()+"a commenter  un plat !!! ");
 				
 				Plat plat =f.get_Plat_par_Id(idPlat);
+				request.setAttribute("utilisateur", client);
         		request.setAttribute("Plat",plat);
 				request.getRequestDispatcher("CommentairesPlat.jsp").forward(request, response);
 				break;
@@ -392,57 +415,48 @@ public class Serv extends HttpServlet {
 				//request.setAttribute("clientP", clientModifie);
 				request.getRequestDispatcher("profil.jsp").forward(request, response);
 				break;
+				
+			case "modifierImage":
+								
+								
+								//  partie  qui concerne l'ajout de l'image de l'utilisateur 
+							
+						        
+						        Part part2 = request.getPart("photo");
+						        String fileName2 = extractFileName(part2);
+						        //String savePaths = PATH + File.separator + fileName;
+						        String path2 = request.getServletContext().getRealPath("");
+						        String savePaths2 = path2 + File.separator + fileName2;
+						        part2.write(savePaths2 + File.separator);
+								
+								//fin partie concernat l'image
+						        
+						        int clienIDD = (int) session.getAttribute("utilisateur");
+						        System.out.println("photo under Name :"+fileName2 );
+								f.modifierImageClient(fileName2 , clienIDD);
+								Client clientP = f.getUserByID(clienIDD);
+								 System.out.println("servlet va te rederiger vers profil.jsp");
+								request.setAttribute("clientP", clientP);
+								
+								request.getRequestDispatcher("profil.jsp").forward(request, response);
+								
+								
+								break;
+								
+								//fin update 16-01-2018
+								
+							case "supprimerImage":
+								System.out.println("suppression de votre image de notre base de donnÃ©Ã©" );
+								int clienIDDD = (int) session.getAttribute("utilisateur");
+								f.supprimerImageClient(clienIDDD);
+								Client clientPP = f.getUserByID(clienIDDD);			
+							request.setAttribute("clientP", clientPP);
+								 System.out.println("servlet va te rederiger vers profil.jsp");
+								request.getRequestDispatcher("profil.jsp").forward(request, response);
+								
+								break;
 			
 
-				
-				
-
-				//update 16-01-2018 
-			case "modifierImage":
-				
-				
-				
-				//  partie  qui concerne l'ajout de l'image de l'utilisateur 
-				Part part2 = request.getPart("photo");
-		        String fileName2= extractFileName(part2);
-		        String savePaths2 = PATH + File.separator + fileName2;
-		        System.out.println(savePaths2);
-		        part2.write(savePaths2 + File.separator);
-		        System.out.println("photo du client inserted !!!");
-				
-				//fin partie concernat l'image
-		        
-		        int clienIDD = (int) session.getAttribute("utilisateur");
-		        System.out.println("photo under Name :"+fileName2 );
-				f.modifierImageClient(fileName2 , clienIDD);
-				Client clientP = f.getUserByID(clienIDD);
-				 System.out.println("servlet va te rederiger vers profil.jsp");
-				request.setAttribute("clientP", clientP);
-				
-				request.getRequestDispatcher("profil.jsp").forward(request, response);
-				
-				
-				break;
-				
-				//fin update 16-01-2018
-				
-			case "supprimerImage":
-				System.out.println("suppression de votre image de notre base de donnéé" );
-				int clienIDDD = (int) session.getAttribute("utilisateur");
-				f.supprimerImageClient(clienIDDD);
-				Client clientPP = f.getUserByID(clienIDDD);			
-				request.setAttribute("clientP", clientPP);
-				 System.out.println("servlet va te rederiger vers profil.jsp");
-				request.getRequestDispatcher("profil.jsp").forward(request, response);
-				
-				break;
-				
-				
-				
-				
-				
-				
-				
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
         
