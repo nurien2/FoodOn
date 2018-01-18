@@ -137,9 +137,10 @@
         </div>
         <div class="col-md-3">
           <h3>Ton Avatar</h3>
-          <img src="img/avatar.png" alt="" class="d-block img-fluid mb-3">
-          <button class="btn btn-primary btn-block">modifier l'Image</button>
-          <button class="btn btn-danger btn-block">supprimer l'Image</button>
+          <img  src="images/<%=client.getImage() %>" alt="" class="d-block img-fluid mb-3">
+          <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal1">modifier l'Image</button>
+          <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal2">supprimer l'Image</button>
+        
         </div>
       </div>
     </div>
@@ -186,6 +187,102 @@
       </div>
     </div>
   </div>
+
+
+
+
+
+
+<div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+       <div class="modal-content">
+        <div class="modal-header bg-warning text-white">
+          <h5 class="modal-title" id="passwordModalLabel">Modifier ton image </h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form type="form" action="Serv" method="post" id="myForm1" enctype="multipart/form-data">
+           
+           <input type="file" name="photo" class="form-control-file" id="file">
+              <small id="fileHelp" class="form-text text-muted">
+                taille max 2MB
+              </small>
+              <small>veuillez valider les modifications!! </small>
+          	<input type="hidden" name="operation" value="modifierImage">
+          </form>
+        </div>
+        
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-dismiss="modal">annuler</button>
+          <button type="submit" class="btn btn-warning" data-dismiss="modal" onclick='$("#myForm1").submit();'>ajouter l'image </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+
+
+
+
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+       <div class="modal-content">
+        <div class="modal-header bg-warning text-white">
+          <h5 class="modal-title" id="passwordModalLabel">Supprimer ton image </h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form type="form" action="Serv" method="post" id="myForm12" >
+           
+           <h4>vous allez  supprimer votre photo de profil!!</h4>
+          	<input type="hidden" name="operation" value="supprimerImage">
+          </form>
+        </div>
+        
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-dismiss="modal">annuler</button>
+          <button type="submit" class="btn btn-warning" data-dismiss="modal" onclick='$("#myForm12").submit();'>Supprimer l'image </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   <script src="js/jquery.min.js"></script>
