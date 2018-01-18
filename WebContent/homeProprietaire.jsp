@@ -14,6 +14,23 @@
   <link rel="stylesheet" href="css/style.css">
   <title>Bienvenue sur votre espace utilisateur</title>
   
+  <script type="text/javascript">
+  
+  function detailsCommande(){
+	  $get(
+		'Serv?operation=detailsCommande',
+		{
+			idCommande:formCommande["id"]
+		},
+		function(data,status){
+			
+		}	  	  
+	  );
+		  
+	  return false;	  
+  }
+  
+  </script>
   
   
 </head>
@@ -43,17 +60,6 @@
 
         <ul class="navbar-nav ml-auto">
 
-<!--           <li class="nav-item dropdown mr-3"> -->
-<!--             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-important">2</span>Notifications</a> -->
-<!--             <div class="dropdown-menu"> -->
-<!--               <a href="Serv?operation=profil" class="dropdown-item"> -->
-<!--                 <i class="fa fa-user-circle"></i>  notif -->
-<!--               </a> -->
-<!--               <a href="Serv?operation=deconnexion" class="dropdown-item"> -->
-<!--                 <i class="fa fa-user-times"></i> notif -->
-<!--               </a> -->
-<!--             </div> -->
-<!--           </li> -->
 			
 			
 		  <%
@@ -121,26 +127,31 @@
                   </tr>
                 </thead>
                 <tbody>
-                  
-                  <%
+            	<%
       			List<Commande> lcommandes = (List<Commande>) request.getAttribute("listeCommandes");
           		
-                  int i = 0;
+                int i = 0;
       			for (Commande com : lcommandes) {
       				i++; 				
       			
       			  %>
+      			 
       			  	<tr>
-                    <td scope="row"><%= com.getId() %> %></td>
+      			  	<form role="form" method="get" name="formDetailsCommande<%= com.getId() %>" action="Serv" onsubmit="return detailsCommande(this)">
+                    <input type="hidden" name="iDcommande" value="<%= com.getId() %>"> 
+                    <input type="hidden" name="operation" value="detailsCommande">
+                    <td name="id" scope="row"><%= com.getId() %></td>
                     <td><%= com.getRestaurant().getNom() %></td>
                     <td><%= com.getClient().getPseudo() %> </td>
                     <td><%= com.getDateCommande() %></td>
-                    <td><a href="details.html" class="btn btn-secondary"><i class="fa fa-angle-double-right"></i> Détails</a></td>
+                    <td><a onclick='$("getCommande<%=i %>").submit();' class="btn btn-secondary"><i class="fa fa-angle-double-right"></i> Détails</a></td>
+                  	 </form>
                   	</tr>
                   <% } %>
                 </tbody>
               </table>
-            </div>
+            </div>             
+
 
         </div>
         <div class="col-md-3">

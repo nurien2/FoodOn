@@ -191,7 +191,17 @@ public class Serv extends HttpServlet {
 				request.getRequestDispatcher("CommentairesPlat.jsp").forward(request, response);
 				break;
 				
+			case "detailsCommande" :
+				System.out.println("servlet attaquee detail commande !!!");
 				
+				int idCom = Integer.parseInt(request.getParameter("idCommande"));
+				Proprietaire proprioDC = (Proprietaire) f.getClientparId((int) session.getAttribute("utilisateur"));
+				request.setAttribute("proprio", proprioDC);
+				Commande c = f.getCommandeParId(idCom);
+				request.setAttribute("commande",c);
+				HashMap<Plat,Integer> contenu = f.getCommandeContenu(c);
+				request.setAttribute("contenu", contenu);
+				request.getRequestDispatcher("detail.jsp").forward(request, response);	
 				
 				
 				

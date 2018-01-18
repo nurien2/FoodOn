@@ -1,9 +1,10 @@
 package pack;
 
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.HashMap;
 
 //import javax.ejb.Remote;
 import javax.ejb.Singleton;
@@ -218,8 +219,20 @@ public class Facade {
 						cli.setImage("img/avatar.png");
 						em.merge(cli);
 						
-	}
+		}
+		
+		public Commande getCommandeParId(int idCom) {
+			return em.find(Commande.class,idCom);
+		}
 
+		public HashMap<Plat, Integer> getCommandeContenu(Commande c) {
+			HashMap<Plat,Integer> contenu = new HashMap<Plat,Integer>();
+			for (int i : c.getPlats().keySet()) {
+				Plat p = em.find(Plat.class, i);
+				contenu.put(p, c.getPlats().get(i));
+			}
+			return contenu;
+		}
 	
 	
 	
